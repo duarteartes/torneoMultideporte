@@ -1,4 +1,4 @@
-const Disciplinas = require('../models/disciplinas.model');
+const Disciplinas = require('../MODELS/disciplinas.model');
 
 const DisciplinasController = {
     getAll: async (req, res) => {
@@ -19,6 +19,35 @@ const DisciplinasController = {
             res.status(500).json({ message: 'Error al obtener disciplina', error: error.message });
         }
     },
+
+    getByAnio: async (req, res) => {
+        try {
+            const { anio } = req.params;
+            const disciplinas = await Disciplinas.getByAnio(anio);
+            res.json(disciplinas);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener disciplinas por año', error: error.message });
+        }
+    },
+
+    getEquiposPorDisciplina: async (req, res) => {
+        try {
+            const equipos = await Disciplinas.getEquiposPorDisciplina(req.params.id);
+            res.json(equipos);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener equipos', error: error.message });
+        }
+    },
+
+    getPartidosPorDisciplina: async (req, res) => {
+        try {
+            const partidos = await Disciplinas.getPartidosPorDisciplina(req.params.id);
+            res.json(partidos);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener partidos', error: error.message });
+        }
+    },
+
 
     create: async (req, res) => {
         try {

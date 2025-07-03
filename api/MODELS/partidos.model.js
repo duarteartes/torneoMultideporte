@@ -6,6 +6,21 @@ const Partidos = {
         return rows;
     },
 
+    getByDisciplinaYAnio: async (disciplinaId, anio) => {
+        const [rows] = await pool.query(
+            `SELECT p.*,
+                el.nombre AS equipo_local_nombre,
+                ev.nombre AS equipo_visitante_nombre
+                FROM partidos p
+                JOIN equipos el ON p.equipo_local_id = el.id
+                JOIN equipos ev ON p.equipo_visitante_id = ev.id
+                WHERE p.disciplina_id = ? AND YEAR(p.fecha) = ?`,
+            [disciplinaId, anio]
+        );
+        return rows;
+    },
+
+
     getById: async (id) => {
         const [rows] = await pool.query('SELECT * FROM partidos WHERE id = ?', [id]);
         return rows[0];

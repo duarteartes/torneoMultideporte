@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+require('./initDB');
 
 const app = express();
 
@@ -8,12 +9,12 @@ app.use(cors());
 app.use(express.json());
 
 // Importar rutas
-const authRoutes = require('./routes/auth.routes');
+const authRoutes = require('./ROUTES/auth.routes');
 const torneosRoutes = require('./routes/torneos.routes');
 const disciplinasRoutes = require('./routes/disciplinas.routes');
 const equiposRoutes = require('./routes/equipos.routes');
 const partidosRoutes = require('./routes/partidos.routes');
-const administradoresRoutes = require('./routes/administradores.routes');
+const administradoresRoutes = require('./ROUTES/administradores.routes');
 
 // Usar rutas
 app.use('/api/auth', authRoutes);

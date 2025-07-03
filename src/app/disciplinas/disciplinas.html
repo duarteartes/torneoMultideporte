@@ -1,0 +1,12 @@
+<h1>Disciplinas</h1>
+
+<div>
+    <button *ngFor="let d of disciplinas" (click)="seleccionarDisciplina(d)">
+        {{ d.nombre }}
+    </button>
+</div>
+
+<app-detalles-disciplina
+    *ngIf="disciplinaSeleccionada"
+    [disciplinaId]="disciplinaSeleccionada.id">
+</app-detalles-disciplina>

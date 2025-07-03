@@ -11,6 +11,39 @@ const Disciplinas = {
         return rows[0];
     },
 
+    getByAnio: async (anio) => {
+        const [rows] = await pool.query(
+            `SELECT DISTINCT d.*
+                FROM disciplinas d
+                JOIN equipos e ON e.disciplina_id = d.id
+                JOIN torneos t ON e.torneo_id = t.id
+                WHERE t.anio = ?`,
+            [anio]
+        );
+        return rows;
+    },
+
+    getEquiposPorDisciplina: async (id) => {
+        // Verificas que la disciplina existe
+        const [disciplina] = await pool.query('SELECT * FROM disciplinas WHERE id = ?', [id]);
+        if (disciplina.length === 0) return []; // o lanzar error
+
+        // Devuelves los equipos
+        const [equipos] = await pool.query('SELECT * FROM equipos WHERE disciplina_id = ?', [id]);
+        return equipos;
+    },
+
+    getPartidosPorDisciplina: async (id) => {
+        const [rows] = await pool.query(
+            `SELECT p.*
+                FROM partidos p
+                WHERE p.disciplina_id = ?`,
+            [id]
+        );
+        return rows;
+    },
+
+
     create: async (data) => {
         const { nombre } = data;
         const [result] = await pool.query(

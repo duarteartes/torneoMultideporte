@@ -6,6 +6,11 @@ const Torneos = {
         return rows;
     },
 
+    getAnios: async () => {
+        const [rows] = await pool.query('SELECT DISTINCT anio FROM torneos ORDER BY anio DESC');
+        return rows.map(row => row.anio);
+    },
+
     getById: async (id) => {
         const [rows] = await pool.query('SELECT * FROM torneos WHERE id = ?', [id]);
         return rows[0];

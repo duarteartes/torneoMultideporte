@@ -10,6 +10,15 @@ const TorneosController = {
         }
     },
 
+    getAnios: async (req, res) => {
+        try {
+            const anios = await Torneos.getAnios();
+            res.json(anios);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener años de torneos', error: error.message });
+        }
+    },
+
     getById: async (req, res) => {
         try {
             const torneo = await Torneos.getById(req.params.id);

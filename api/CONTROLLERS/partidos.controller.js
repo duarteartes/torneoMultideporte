@@ -4,9 +4,20 @@ const PartidosController = {
     getAll: async (req, res) => {
         try {
             const partidos = await Partidos.getAll();
-            res.json(partidos);
+            res.json(partidos);  // Devuelve sin formatear
         } catch (error) {
             res.status(500).json({ message: 'Error al obtener partidos', error: error.message });
+        }
+    },
+
+    getByDisciplinaYAnio: async (req, res) => {
+        try {
+            const { disciplinaId, anio } = req.params;
+            const partidos = await Partidos.getByDisciplinaYAnio(disciplinaId, anio);
+            // Enviar partidos sin modificar la fecha
+            res.json(partidos);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener partidos por disciplina y año', error: error.message });
         }
     },
 

@@ -1,0 +1,30 @@
+.bracket-container {
+    overflow-x: auto;
+    padding: 1rem;
+}
+
+.bracket {
+    display: flex;
+    gap: 2rem;
+}
+
+.round {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.match {
+    background: #f1f1f1;
+    padding: 1rem;
+    border: 2px solid #000;
+    border-radius: 5px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.match span {
+    display: block;
+    margin: 5px 0;
+    font-weight: bold;
+}
