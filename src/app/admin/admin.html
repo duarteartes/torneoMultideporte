@@ -1,1 +1,48 @@
-<p>admin works!</p>
+<!-- Mostrar equipos de la disciplina seleccionada -->
+<div *ngIf="disciplinaSeleccionada">
+  <h3>Equipos inscritos</h3>
+  <ul>
+    <!-- ✅ AHORA usa equiposFiltrados -->
+    <li *ngFor="let equipo of equiposFiltrados">
+      {{ equipo.nombre }}
+    </li>
+  </ul>
+</div>
+
+<!-- Formulario para crear partido -->
+<div *ngIf="disciplinaSeleccionada">
+  <h3>Crear Partido</h3>
+  <form [formGroup]="crearPartidoForm" (ngSubmit)="crearPartido()">
+    <div>
+      <label for="local">Equipo Local:</label>
+      <select id="local" formControlName="equipoLocalId" required>
+        <option [value]="null" disabled selected>Selecciona equipo local</option>
+        <option *ngFor="let equipo of equiposFiltrados" [value]="equipo.id">
+          {{ equipo.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label for="visitante">Equipo Visitante:</label>
+      <select id="visitante" formControlName="equipoVisitanteId" required>
+        <option [value]="null" disabled selected>Selecciona equipo visitante</option>
+        <option *ngFor="let equipo of equiposFiltrados" [value]="equipo.id">
+          {{ equipo.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label for="fase">Fase:</label>
+      <input id="fase" type="text" formControlName="fase" placeholder="Ej: Semifinal" required />
+    </div>
+
+    <div>
+      <label for="fecha">Fecha:</label>
+      <input id="fecha" type="date" formControlName="fecha" required />
+    </div>
+
+    <button type="submit" [disabled]="crearPartidoForm.invalid">Crear Partido</button>
+  </form>
+</div>

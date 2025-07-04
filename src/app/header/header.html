@@ -8,10 +8,19 @@
         <li><a routerLink="/">Home</a></li>
         <li><a routerLink="/disciplinas">Disciplinas</a></li>
         <li><a routerLink="/inscripciones">Inscripciones</a></li>
-        <li>
-            <a routerLink="/admin">
-                <span class="material-icons">person</span>
-            </a>
+        <li class="user-menu" *ngIf="auth.isLoggedIn(); else loginLink">
+            <span class="material-icons" (click)="toggleDropdown()">person</span>
+            <ul class="dropdown" *ngIf="showDropdown">
+                <li><a routerLink="/admin" (click)="toggleDropdown()">Ir a Admin</a></li>
+                <li><a href="#" (click)="logout()">Cerrar sesión</a></li>
+            </ul>
         </li>
+        <ng-template #loginLink>
+            <li>
+                <a routerLink="/login">
+                    <span class="material-icons">person</span>
+                </a>
+            </li>
+        </ng-template>
     </ul>
 </nav>

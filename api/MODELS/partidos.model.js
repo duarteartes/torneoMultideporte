@@ -66,6 +66,24 @@ const Partidos = {
             fecha,
         } = data;
 
+        // 1️⃣ Primero verifica si el partido es del año en curso
+        const [rows] = await pool.query(
+            `SELECT YEAR(fecha) as anio FROM partidos WHERE id = ?`,
+            [id]
+        );
+
+        if (rows.length === 0) {
+            throw new Error('Partido no encontrado');
+        }
+
+        const partidoAnio = rows[0].anio;
+        const anioActual = new Date().getFullYear();
+
+        if (partidoAnio !== anioActual) {
+            throw new Error(`Solo se pueden modificar partidos del año en curso (${anioActual})`);
+        }
+
+        // 2️⃣ Actualiza si pasa la validación
         await pool.query(
             `UPDATE partidos
                 SET resultado_local = ?, resultado_visitante = ?, ganador_id = ?, fecha = ?
@@ -74,9 +92,28 @@ const Partidos = {
         );
     },
 
+
     delete: async (id) => {
+        // Verifica año
+        const [rows] = await pool.query(
+            `SELECT YEAR(fecha) as anio FROM partidos WHERE id = ?`,
+            [id]
+        );
+
+        if (rows.length === 0) {
+            throw new Error('Partido no encontrado');
+        }
+
+        const partidoAnio = rows[0].anio;
+        const anioActual = new Date().getFullYear();
+
+        if (partidoAnio !== anioActual) {
+            throw new Error(`Solo se pueden eliminar partidos del año en curso (${anioActual})`);
+        }
+
         await pool.query('DELETE FROM partidos WHERE id = ?', [id]);
-    },
+    }
+
 };
 
 module.exports = Partidos;
