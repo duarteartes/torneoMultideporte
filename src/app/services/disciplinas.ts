@@ -5,10 +5,15 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class DisciplinasService {
   private apiUrl = 'http://localhost:3000/api'; // Ajusta tu URL base
 
   constructor(private http: HttpClient) {}
+
+  getAll(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/disciplinas`);
+  }
 
   getDisciplinaById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/disciplinas/${id}`);

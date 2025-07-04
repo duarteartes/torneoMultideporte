@@ -25,6 +25,9 @@ const EquiposController = {
             const id = await Equipos.create(req.body);
             res.status(201).json({ message: 'Equipo creado', id });
         } catch (error) {
+            if (error.code === 'DUPLICATE_TEAM') {
+                return res.status(400).json({ message: error.message });
+            }
             res.status(500).json({ message: 'Error al crear equipo', error: error.message });
         }
     },

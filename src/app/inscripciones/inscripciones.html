@@ -1,1 +1,18 @@
-<p>inscripciones works!</p>
+<form [formGroup]="inscripcionForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="nombreEquipo">Nombre del equipo:</label>
+        <input id="nombreEquipo" formControlName="nombreEquipo" type="text" />
+    </div>
+
+    <div>
+        <label for="disciplina">Disciplina:</label>
+        <select id="disciplina" formControlName="disciplinaId">
+            <option value="" disabled selected>Seleccione una disciplina</option>
+            <option *ngFor="let d of disciplinas" [value]="d.id">{{ d.nombre }}</option>
+        </select>
+    </div>
+
+    <button type="submit" [disabled]="botonDeshabilitado">Inscribirse</button>
+    <p *ngIf="mensajeExito" style="color: green;">{{ mensajeExito }}</p>
+    <p *ngIf="mensajeError" style="color: red;">{{ mensajeError }}</p>
+</form>
