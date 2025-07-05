@@ -1,42 +1,60 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { PartidosService } from '../services/partidos';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DisciplinasService } from '../services/disciplinas';
 import { EquiposService } from '../services/equipos';
+import { PartidosService } from '../services/partidos';
 
 @Component({
   selector: 'app-admin',
-  imports: [CommonModule, ReactiveFormsModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './admin.html',
-  styleUrl: './admin.css'
+  styleUrls: ['./admin.css']
 })
-
 export class Admin implements OnInit {
   disciplinas: any[] = [];
   equipos: any[] = [];
-  equiposFiltrados: any[] = []; // ✅ NUEVO
+  equiposFiltrados: any[] = [];
   partidos: any[] = [];
-  anioActual: number = new Date().getFullYear();
+  anioActual = new Date().getFullYear();
 
   disciplinaSeleccionada: number | null = null;
-  mensaje: string = '';
+  mensaje = '';
 
+  crearEquipoForm!: FormGroup;
+  editarEquipoForm!: FormGroup;
   crearPartidoForm!: FormGroup;
 
-  token: string = '';
+  equipoEditando: any | null = null;
+
+  private get token(): string {
+    return localStorage.getItem('token') || '';
+  }
 
   constructor(
+    private fb: FormBuilder,
     private disciplinasService: DisciplinasService,
     private equiposService: EquiposService,
-    private partidosService: PartidosService,
-    private fb: FormBuilder
+    private partidosService: PartidosService
   ) {}
 
   ngOnInit(): void {
     this.loadDisciplinas();
     this.loadEquipos();
+
+    this.crearEquipoForm = this.fb.group({
+      nombre: ['', Validators.required]
+    });
+
+    this.editarEquipoForm = this.fb.group({
+      nombre: ['', Validators.required],
+      disciplinaId: ['', Validators.required]
+    });
 
     this.crearPartidoForm = this.fb.group({
       equipoLocalId: [null, Validators.required],
@@ -44,77 +62,188 @@ export class Admin implements OnInit {
       fase: ['', Validators.required],
       fecha: ['', Validators.required]
     });
+  }
 
-    this.token = localStorage.getItem('token') || '';
+  private showMessage(text: string, duration = 3000) {
+    this.mensaje = text;
   }
 
   loadDisciplinas() {
-    this.disciplinasService.getAll().subscribe(data => this.disciplinas = data);
+    this.disciplinasService.getAll().subscribe({
+      next: d => this.disciplinas = d,
+      error: () => this.showMessage('Error cargando disciplinas')
+    });
   }
 
   loadEquipos() {
-    this.equiposService.getAll().subscribe(data => this.equipos = data);
+    this.equiposService.getAll().subscribe({
+      next: e => {
+        this.equipos = e;
+        this.filterEquipos();
+      },
+      error: () => this.showMessage('Error cargando equipos')
+    });
   }
 
-  onDisciplinaChange() {
-    if (this.disciplinaSeleccionada) {
-      // ✅ Filtra los equipos para la disciplina seleccionada
-      this.equiposFiltrados = this.equipos.filter(e => e.disciplina_id === this.disciplinaSeleccionada);
+  seleccionarDisciplina(id: number) {
+    this.disciplinaSeleccionada = id;
+    this.filterEquipos();
+    this.loadPartidos();
+  }
 
-      this.partidosService.getByDisciplinaYAnio(this.disciplinaSeleccionada, this.anioActual)
-        .subscribe(data => this.partidos = data);
+  private filterEquipos() {
+    if (this.disciplinaSeleccionada != null) {
+      this.equiposFiltrados = this.equipos.filter(e => e.disciplina_id === this.disciplinaSeleccionada);
     } else {
       this.equiposFiltrados = [];
+    }
+  }
+
+  private loadPartidos() {
+    if (this.disciplinaSeleccionada != null) {
+      this.partidosService.getByDisciplinaYAnio(this.disciplinaSeleccionada, this.anioActual).subscribe({
+        next: p => this.partidos = p,
+        error: () => this.showMessage('Error cargando partidos')
+      });
+    } else {
       this.partidos = [];
     }
   }
 
-  crearPartido() {
-    if (this.crearPartidoForm.invalid || !this.disciplinaSeleccionada) return;
+  crearEquipo() {
+    if (this.crearEquipoForm.invalid || this.disciplinaSeleccionada == null) return;
 
     const datos = {
-      torneo_id: 1, // o dinámico
+      nombre: this.crearEquipoForm.value.nombre.trim(),
       disciplina_id: this.disciplinaSeleccionada,
-      equipo_local_id: this.crearPartidoForm.value.equipoLocalId,
-      equipo_visitante_id: this.crearPartidoForm.value.equipoVisitanteId,
-      fase: this.crearPartidoForm.value.fase,
+      torneo_id: 1
+    };
+
+    this.equiposService.createEquipo(datos).subscribe({
+      next: () => {
+        this.showMessage('Equipo creado.');
+        this.crearEquipoForm.reset();
+        this.loadEquipos();
+      },
+      error: err => this.showMessage(err.error?.message || 'Error creando equipo')
+    });
+  }
+
+  editarEquipo(e: any) {
+    this.equipoEditando = e;
+    this.editarEquipoForm.patchValue({
+      nombre: e.nombre,
+      disciplinaId: e.disciplina_id
+    });
+  }
+
+  guardarEdicionEquipo() {
+    if (!this.equipoEditando || this.editarEquipoForm.invalid) return;
+
+    const datos = {
+      nombre: this.editarEquipoForm.value.nombre.trim(),
+      disciplina_id: this.editarEquipoForm.value.disciplinaId,
+      torneo_id: this.equipoEditando.torneo_id
+    };
+
+    this.equiposService.updateEquipo(this.equipoEditando.id, datos, this.token).subscribe({
+      next: () => {
+        this.showMessage('Equipo actualizado.');
+        this.equipoEditando = null;
+        this.editarEquipoForm.reset();
+        this.loadEquipos();
+      },
+      error: err => this.showMessage(err.error?.message || 'Error actualizando equipo')
+    });
+  }
+
+  cancelarEdicionEquipo() {
+    this.equipoEditando = null;
+    this.editarEquipoForm.reset();
+  }
+
+  eliminarEquipo(id: number) {
+    if (!confirm('¿Seguro que quieres eliminar este equipo?')) return;
+
+    this.equiposService.deleteEquipo(id, this.token).subscribe({
+      next: () => {
+        this.showMessage('Equipo eliminado.');
+        this.loadEquipos();
+      },
+      error: err => this.showMessage(err.error?.message || 'Error eliminando equipo')
+    });
+  }
+
+  crearPartido() {
+    if (this.crearPartidoForm.invalid || this.disciplinaSeleccionada == null) return;
+
+    const f = this.crearPartidoForm.value;
+
+    if (f.equipoLocalId === f.equipoVisitanteId) {
+      this.showMessage('El equipo local y visitante deben ser diferentes.');
+      return;
+    }
+
+    const datos = {
+      torneo_id: 1,
+      disciplina_id: this.disciplinaSeleccionada,
+      equipo_local_id: f.equipoLocalId,
+      equipo_visitante_id: f.equipoVisitanteId,
+      fase: f.fase.trim(),
       resultado_local: null,
       resultado_visitante: null,
       ganador_id: null,
-      fecha: this.crearPartidoForm.value.fecha
+      fecha: f.fecha
     };
 
     this.partidosService.create(datos, this.token).subscribe({
       next: () => {
-        this.mensaje = 'Partido creado.';
-        this.onDisciplinaChange();
+        this.showMessage('Partido creado.');
         this.crearPartidoForm.reset();
+        this.loadPartidos();
       },
-      error: err => this.mensaje = err.error.message
+      error: err => this.showMessage(err.error?.message || 'Error creando partido')
     });
   }
 
-  guardarResultado(partido: any) {
+  guardarResultado(p: any) {
+    if (p.equipo_local_id === p.equipo_visitante_id) {
+      this.showMessage('El equipo local y visitante no pueden ser iguales.');
+      return;
+    }
+
     const datos = {
-      resultado_local: partido.resultado_local,
-      resultado_visitante: partido.resultado_visitante,
-      ganador_id: partido.ganador_id,
-      fecha: partido.fecha
+      resultado_local: p.resultado_local,
+      resultado_visitante: p.resultado_visitante,
+      ganador_id: p.ganador_id,
+      fecha: p.fecha
     };
 
-    this.partidosService.update(partido.id, datos, this.token).subscribe({
-      next: () => this.mensaje = 'Resultado actualizado.',
-      error: err => this.mensaje = err.error.message
+    this.partidosService.update(p.id, datos, this.token).subscribe({
+      next: () => this.showMessage('Resultado actualizado.'),
+      error: err => this.showMessage(err.error?.message || 'Error guardando resultado')
     });
   }
 
   borrarPartido(id: number) {
+    if (!confirm('¿Seguro que quieres eliminar este partido?')) return;
+
     this.partidosService.delete(id, this.token).subscribe({
       next: () => {
-        this.mensaje = 'Partido eliminado.';
-        this.onDisciplinaChange();
+        this.showMessage('Partido eliminado.');
+        this.loadPartidos();
       },
-      error: err => this.mensaje = err.error.message
+      error: err => this.showMessage(err.error?.message || 'Error eliminando partido')
     });
+  }
+
+  get nombreDisciplinaSeleccionada(): string {
+    if (this.disciplinaSeleccionada == null) return '';
+    const d = this.disciplinas.find(x => x.id === this.disciplinaSeleccionada);
+    return d ? d.nombre : '';
+  }
+
+  trackById(index: number, item: any): number {
+    return item.id;
   }
 }

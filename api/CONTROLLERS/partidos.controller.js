@@ -45,6 +45,10 @@ const PartidosController = {
             await Partidos.update(req.params.id, req.body);
             res.json({ message: 'Partido actualizado' });
         } catch (error) {
+            console.error('Error al actualizar partido:', error);  // <--- LOG COMPLETO
+            if (error.status) {
+                return res.status(error.status).json({ message: error.message });
+            }
             res.status(500).json({ message: 'Error al actualizar partido', error: error.message });
         }
     },

@@ -1,48 +1,146 @@
-<!-- Mostrar equipos de la disciplina seleccionada -->
-<div *ngIf="disciplinaSeleccionada">
-  <h3>Equipos inscritos</h3>
-  <ul>
-    <!-- ✅ AHORA usa equiposFiltrados -->
-    <li *ngFor="let equipo of equiposFiltrados">
-      {{ equipo.nombre }}
-    </li>
-  </ul>
+<!-- Selección de disciplina -->
+<div class="disciplinas">
+  <h2>Panel de Administración</h2>
+  <p>Selecciona disciplina:</p>
+  <div class="botones-disciplinas">
+    <button 
+      *ngFor="let d of disciplinas" 
+      (click)="seleccionarDisciplina(d.id)"
+      [class.selected]="disciplinaSeleccionada === d.id">
+      {{ d.nombre }}
+    </button>
+  </div>
 </div>
 
-<!-- Formulario para crear partido -->
+<!-- Mensaje de estado -->
+<p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
+
+<!-- Contenido solo si hay disciplina seleccionada -->
 <div *ngIf="disciplinaSeleccionada">
-  <h3>Crear Partido</h3>
-  <form [formGroup]="crearPartidoForm" (ngSubmit)="crearPartido()">
-    <div>
-      <label for="local">Equipo Local:</label>
-      <select id="local" formControlName="equipoLocalId" required>
-        <option [value]="null" disabled selected>Selecciona equipo local</option>
-        <option *ngFor="let equipo of equiposFiltrados" [value]="equipo.id">
-          {{ equipo.nombre }}
-        </option>
-      </select>
-    </div>
 
-    <div>
-      <label for="visitante">Equipo Visitante:</label>
-      <select id="visitante" formControlName="equipoVisitanteId" required>
-        <option [value]="null" disabled selected>Selecciona equipo visitante</option>
-        <option *ngFor="let equipo of equiposFiltrados" [value]="equipo.id">
-          {{ equipo.nombre }}
-        </option>
-      </select>
-    </div>
+  <!-- FORM: Crear Equipo -->
+  <section *ngIf="!equipoEditando" class="form-crear-equipo">
+    <h3>Crear Equipo</h3>
+    <form [formGroup]="crearEquipoForm" (ngSubmit)="crearEquipo()">
+      <label>
+        Disciplina:
+        <input type="text" 
+               [value]="nombreDisciplinaSeleccionada" 
+               disabled>
+      </label>
+      <label>
+        Nombre equipo:
+        <input formControlName="nombre" placeholder="Nombre del equipo">
+      </label>
+      <button type="submit" [disabled]="crearEquipoForm.invalid">Crear Equipo</button>
+    </form>
+  </section>
 
-    <div>
-      <label for="fase">Fase:</label>
-      <input id="fase" type="text" formControlName="fase" placeholder="Ej: Semifinal" required />
-    </div>
+  <!-- FORM: Editar Equipo -->
+  <section *ngIf="equipoEditando" class="form-editar-equipo">
+    <h3>Editar Equipo</h3>
+    <form [formGroup]="editarEquipoForm" (ngSubmit)="guardarEdicionEquipo()">
+      <label>
+        Disciplina:
+        <select formControlName="disciplinaId">
+          <option *ngFor="let d of disciplinas" [value]="d.id">{{ d.nombre }}</option>
+        </select>
+      </label>
+      <label>
+        Nombre equipo:
+        <input formControlName="nombre" placeholder="Nombre del equipo">
+      </label>
+      <button type="submit" [disabled]="editarEquipoForm.invalid">Guardar</button>
+      <button type="button" (click)="cancelarEdicionEquipo()">Cancelar</button>
+    </form>
+  </section>
 
-    <div>
-      <label for="fecha">Fecha:</label>
-      <input id="fecha" type="date" formControlName="fecha" required />
-    </div>
+  <!-- LISTA DE EQUIPOS -->
+  <section class="lista-equipos">
+    <h3>Equipos inscritos</h3>
+    <ul>
+      <li *ngFor="let e of equiposFiltrados">
+        {{ e.nombre }}
+        <button (click)="editarEquipo(e)" title="Editar equipo">✎</button>
+        <button (click)="eliminarEquipo(e.id)" title="Eliminar equipo">🗑️</button>
+      </li>
+    </ul>
+  </section>
 
-    <button type="submit" [disabled]="crearPartidoForm.invalid">Crear Partido</button>
-  </form>
+  <!-- FORM: Crear Partido -->
+  <section class="form-crear-partido">
+    <h3>Crear Partido</h3>
+    <form [formGroup]="crearPartidoForm" (ngSubmit)="crearPartido()">
+      <label>
+        Local:
+        <select formControlName="equipoLocalId">
+          <option [ngValue]="null" disabled>-- Seleccione equipo local --</option>
+          <option *ngFor="let e of equiposFiltrados" [ngValue]="e.id">{{ e.nombre }}</option>
+        </select>
+      </label>
+      <label>
+        Visitante:
+        <select formControlName="equipoVisitanteId">
+          <option [ngValue]="null" disabled>-- Seleccione equipo visitante --</option>
+          <option *ngFor="let e of equiposFiltrados" [ngValue]="e.id">{{ e.nombre }}</option>
+        </select>
+      </label>
+      <label>
+        Fase:
+        <input formControlName="fase" placeholder="Fase del partido">
+      </label>
+      <label>
+        Fecha:
+        <input type="date" formControlName="fecha">
+      </label>
+      <button type="submit" [disabled]="crearPartidoForm.invalid">Crear Partido</button>
+    </form>
+  </section>
+
+  <!-- LISTA DE PARTIDOS -->
+  <section class="lista-partidos">
+    <h3>Partidos {{ anioActual }}</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Local</th>
+          <th>Visitante</th>
+          <th>Fase</th>
+          <th>Fecha</th>
+          <th>Res L</th>
+          <th>Res V</th>
+          <th>Ganador</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of partidos">
+          <td>{{ p.equipo_local_nombre }}</td>
+          <td>{{ p.equipo_visitante_nombre }}</td>
+          <td>{{ p.fase }}</td>
+          <td>
+            <input [(ngModel)]="p.fecha" name="fecha{{p.id}}" type="date">
+          </td>
+          <td>
+            <input [(ngModel)]="p.resultado_local" name="resLocal{{p.id}}" type="number" min="0">
+          </td>
+          <td>
+            <input [(ngModel)]="p.resultado_visitante" name="resVisitante{{p.id}}" type="number" min="0">
+          </td>
+          <td>
+            <select [(ngModel)]="p.ganador_id" name="ganador{{p.id}}">
+              <option [ngValue]="null">-</option>
+              <option [ngValue]="p.equipo_local_id">{{ p.equipo_local_nombre }}</option>
+              <option [ngValue]="p.equipo_visitante_id">{{ p.equipo_visitante_nombre }}</option>
+            </select>
+          </td>
+          <td>
+            <button (click)="guardarResultado(p)">Guardar</button>
+            <button (click)="borrarPartido(p.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
 </div>

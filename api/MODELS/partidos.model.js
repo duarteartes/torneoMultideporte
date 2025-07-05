@@ -20,7 +20,6 @@ const Partidos = {
         return rows;
     },
 
-
     getById: async (id) => {
         const [rows] = await pool.query('SELECT * FROM partidos WHERE id = ?', [id]);
         return rows[0];
@@ -66,7 +65,7 @@ const Partidos = {
             fecha,
         } = data;
 
-        // 1️⃣ Primero verifica si el partido es del año en curso
+        // Verifica año
         const [rows] = await pool.query(
             `SELECT YEAR(fecha) as anio FROM partidos WHERE id = ?`,
             [id]
@@ -83,15 +82,16 @@ const Partidos = {
             throw new Error(`Solo se pueden modificar partidos del año en curso (${anioActual})`);
         }
 
-        // 2️⃣ Actualiza si pasa la validación
+        // ✅ Formatea la fecha
+        const fechaFormateada = formatFecha(fecha);
+
         await pool.query(
             `UPDATE partidos
                 SET resultado_local = ?, resultado_visitante = ?, ganador_id = ?, fecha = ?
                 WHERE id = ?`,
-            [resultado_local, resultado_visitante, ganador_id, fecha, id]
+            [resultado_local, resultado_visitante, ganador_id, fechaFormateada, id]
         );
     },
-
 
     delete: async (id) => {
         // Verifica año
@@ -114,6 +114,17 @@ const Partidos = {
         await pool.query('DELETE FROM partidos WHERE id = ?', [id]);
     }
 
+};
+
+const formatFecha = (isoString) => {
+    const fecha = new Date(isoString);
+    const year = fecha.getFullYear();
+    const month = String(fecha.getMonth() + 1).padStart(2, '0');
+    const day = String(fecha.getDate()).padStart(2, '0');
+    const hours = String(fecha.getHours()).padStart(2, '0');
+    const minutes = String(fecha.getMinutes()).padStart(2, '0');
+    const seconds = String(fecha.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
 
 module.exports = Partidos;
