@@ -1,30 +1,241 @@
-.bracket-container {
-    overflow-x: auto;
-    padding: 1rem;
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1rem;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  width: 100%;
 }
 
-.bracket {
-    display: flex;
-    gap: 2rem;
+/* Contenedor de botones de toggle */
+.botones-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.round {
-    display: flex;
+:host > .botones-toggle button.secondary {
+  width: auto;
+}
+
+/* Título de sección */
+h3 {
+  margin: 1.5rem 0 1rem;
+  color: #b0b0b0;
+  text-align: center;
+}
+
+/* Lista de tarjetas de equipos */
+ul.equipos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+li.equipo-card {
+  max-width: 700px;
+  width: 100%;
+  background: #222222;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 0;
+}
+
+li.equipo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(102,102,102,0.9);
+}
+
+.equipo-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin-bottom: 0.75rem;
+}
+
+/* Lista de partidos dentro de la card */
+ul.partidos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Partido individual */
+li.partido-item {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border-left: 4px solid #444;
+}
+
+.partido-linea1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.partido-linea1 .fecha {
+  font-size: 0.85rem;
+  color: #999999;
+}
+
+.partido-linea1 .equipos {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.partido-linea1 .vs {
+  margin: 0 0.25rem;
+  font-weight: bold;
+  color: #777;
+}
+
+.partido-linea2 {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #cccccc;
+}
+
+/* Footer de la card de equipo */
+.equipo-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.equipo-footer button {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.75rem;
+  width: auto;
+  background-color: #444;
+  border: none;
+  border-radius: 6px;
+  color: #eee;
+  cursor: default;
+  font-weight: 700;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.equipo-footer button:hover {
+  background-color: #666;
+}
+
+/* Imagen eliminatoria */
+img {
+  max-width: 100%;
+  height: auto;
+  border: 3px solid #444;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* ==== CARD GANADOR ==== */
+
+li.equipo-card.ganador {
+  border: 4px solid #b08d57; /* dorado mate */
+  background: linear-gradient(135deg, #2f2a1b, #463f2a); /* tonos marrón oscuro cálidos */
+  box-shadow: 0 0 15px 5px rgba(176,141,87,0.6); /* resplandor dorado suave */
+  color: #d9cba3; /* texto beige claro */
+  position: relative;
+}
+
+li.equipo-card.ganador .equipo-header {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #c3ad6f; /* dorado menos brillante */
+  text-align: center;
+  text-shadow: 0 0 5px rgba(195,173,111,0.8);
+}
+
+li.equipo-card.ganador ul.partidos-list {
+  background: rgba(70, 60, 40, 0.7);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 1rem;
+  color: #d2cba3;
+}
+
+li.equipo-card.ganador li.partido-item {
+  background: transparent;
+  border-left-color: #b08d57;
+  color: #e0d9b7;
+  font-weight: 700;
+}
+
+li.equipo-card.ganador .equipo-footer {
+  justify-content: center;
+}
+
+li.equipo-card.ganador .equipo-footer button {
+  background: #b08d57;
+  color: #2a220a;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.5rem;
+  cursor: default;
+  box-shadow: 0 0 10px rgba(176,141,87,0.7);
+  border-radius: 12px;
+  user-select: none;
+  font-weight: 900;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+li.equipo-card.ganador .equipo-footer button:hover {
+  background-color: #a3864d;
+}
+
+/* Responsive tablet */
+@media (max-width: 900px) {
+  ul.equipos-list {
+    max-width: 100%;
+  }
+  li.equipo-card {
+    padding: 0.75rem;
+  }
+}
+
+/* Responsive móvil */
+@media (max-width: 480px) {
+  :host {
+    padding: 0.75rem;
+  }
+
+  li.partido-item {
+    font-size: 0.85rem;
+  }
+
+  button.secondary {
+    width: 100%;
+  }
+
+  :host > .botones-toggle button.secondary {
+    width: 70%;
+  }
+
+  .botones-toggle {
     flex-direction: column;
-    gap: 2rem;
-}
-
-.match {
-    background: #f1f1f1;
-    padding: 1rem;
-    border: 2px solid #000;
-    border-radius: 5px;
-    text-align: center;
-    min-width: 120px;
-}
-
-.match span {
-    display: block;
-    margin: 5px 0;
-    font-weight: bold;
+    gap: 0.5rem;
+  }
 }

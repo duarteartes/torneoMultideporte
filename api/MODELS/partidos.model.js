@@ -25,6 +25,20 @@ const Partidos = {
         return rows[0];
     },
 
+    getGanadorPorDisciplinaYAnio: async (disciplinaId, anio) => {
+        // Aquí asumimos que la fase final se llama 'Final' (ajustar si se llama diferente)
+        const [rows] = await pool.query(
+            `SELECT p.ganador_id, e.nombre AS equipo_ganador_nombre
+                FROM partidos p
+                JOIN equipos e ON p.ganador_id = e.id
+                WHERE p.disciplina_id = ? AND YEAR(p.fecha) = ? AND p.fase = 'Final'
+                LIMIT 1`,
+                [disciplinaId, anio]
+        );
+        return rows.length > 0 ? rows[0] : null;
+    },
+
+
     create: async (data) => {
         const {
             torneo_id,

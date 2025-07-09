@@ -6,6 +6,7 @@ const authenticateToken = require('../middlewares/auth.middleware');
 router.get('/', PartidosController.getAll);
 router.get('/disciplina/:disciplinaId/anio/:anio', PartidosController.getByDisciplinaYAnio);
 router.get('/:id', PartidosController.getById);
+router.get('/disciplina/:disciplinaId/anio/:anio/ganador', PartidosController.getGanadorPorDisciplinaYAnio);
 router.post('/', authenticateToken, PartidosController.create);
 router.put('/:id', authenticateToken, PartidosController.update);
 router.delete('/:id', authenticateToken, PartidosController.delete);

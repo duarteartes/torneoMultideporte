@@ -1,0 +1,82 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #1a1a1a; /* fondo coherente con home */
+    color: #e0e0e0; /* texto claro */
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #b0b0b0; /* mismo gris de títulos */
+    text-align: center;
+}
+
+.botones-disciplinas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.botones-disciplinas button {
+    flex: 1 1 calc(25% - 1rem);
+    max-width: 280px;
+    min-width: 140px;
+    background-color: #333333; /* gris oscuro */
+    color: #e0e0e0;
+    font-size: 1.25rem;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    user-select: none;
+}
+
+.botones-disciplinas button:hover {
+    background-color: #4a4a4a; /* gris medio hover */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.botones-disciplinas button.selected {
+    background-color: #666666; /* seleccionado */
+}
+
+/* Responsive: tablets */
+@media (max-width: 900px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .botones-disciplinas button {
+        flex: 1 1 calc(50% - 1rem);
+        max-width: none;
+    }
+}
+
+/* Responsive: móviles */
+@media (max-width: 480px) {
+    :host {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .botones-disciplinas {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .botones-disciplinas button {
+        width: 90%;    /* 🔑 fuerza ancho fijo del 90% */
+        flex: none;    /* 🔑 evita que flex-grow/shrink lo cambien */
+        max-width: none; /* 🔑 quita límite de 300px */
+    }
+}

@@ -1,4 +1,4 @@
-const Partidos = require('../models/partidos.model');
+const Partidos = require('../MODELS/partidos.model');
 
 const PartidosController = {
     getAll: async (req, res) => {
@@ -30,6 +30,20 @@ const PartidosController = {
             res.status(500).json({ message: 'Error al obtener partido', error: error.message });
         }
     },
+
+    getGanadorPorDisciplinaYAnio: async (req, res) => {
+        try {
+            const { disciplinaId, anio } = req.params;
+            const ganador = await Partidos.getGanadorPorDisciplinaYAnio(disciplinaId, anio);
+            if (!ganador) {
+                return res.status(404).json({ message: 'No se encontró ganador para esta disciplina y año' });
+            }
+            res.json(ganador);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener ganador', error: error.message });
+        }
+    },
+
 
     create: async (req, res) => {
         try {

@@ -24,6 +24,7 @@ export class DetallesDisciplina implements OnInit, OnChanges {
 
   ultimaImagenUrl: string | null = null;
   torneoId = 1; // o el ID del torneo activo que tengas, definirlo según contexto
+  ganador: any = null;
 
   constructor(private disciplinaService: DisciplinasService, private partidosService: PartidosService) {}
 
@@ -32,6 +33,9 @@ export class DetallesDisciplina implements OnInit, OnChanges {
       this.loadDisciplina(this.disciplinaId);
       this.loadEquipos(this.disciplinaId);
       this.loadPartidos(this.disciplinaId);
+      this.loadUltimaImagen(this.torneoId, this.disciplinaId);
+      this.loadGanador(this.disciplinaId);
+
     }
   }
 
@@ -42,6 +46,7 @@ export class DetallesDisciplina implements OnInit, OnChanges {
       this.loadEquipos(id);
       this.loadPartidos(id);
       this.loadUltimaImagen(this.torneoId, id);
+      this.loadGanador(id);
     }
   }
 
@@ -53,8 +58,24 @@ export class DetallesDisciplina implements OnInit, OnChanges {
 
   loadEquipos(id: number) {
     this.disciplinaService.getEquiposPorDisciplina(id).subscribe(data => {
-      this.equipos = data;
-      this.equiposConPartidosAbiertos = new Array(this.equipos.length).fill(false);
+      // Filtramos equipos para que solo estén los que tienen partidos en el año actual
+      const anioActual = new Date().getFullYear();
+
+      // Cargamos los partidos para la disciplina y año actual (ya haces loadPartidos)
+      this.partidosService.getByDisciplinaYAnio(id, anioActual).subscribe(partidos => {
+        this.partidos = partidos;
+
+        // Crear un Set con ids de equipos que aparecen en partidos del año actual
+        const equiposConPartidos = new Set<number>();
+        partidos.forEach(p => {
+          equiposConPartidos.add(p.equipo_local_id);
+          equiposConPartidos.add(p.equipo_visitante_id);
+        });
+
+        // Filtrar equipos para mostrar solo los que están en ese Set
+        this.equipos = data.filter(equipo => equiposConPartidos.has(equipo.id));
+        this.equiposConPartidosAbiertos = new Array(this.equipos.length).fill(false);
+      });
     });
   }
 
@@ -73,6 +94,17 @@ export class DetallesDisciplina implements OnInit, OnChanges {
       error: (err) => {
         console.warn('No se encontró última imagen', err);
         this.ultimaImagenUrl = null;
+      }
+    });
+  }
+
+  loadGanador(id: number) {
+    const anioActual = new Date().getFullYear();
+    this.partidosService.getGanadorPorDisciplinaYAnio(id, anioActual).subscribe({
+      next: (data) => this.ganador = data,
+      error: (err) => {
+        console.warn('No se encontró ganador para esta disciplina y año', err);
+        this.ganador = null;
       }
     });
   }
@@ -97,9 +129,9 @@ export class DetallesDisciplina implements OnInit, OnChanges {
     this.mostrarEquipos = false;
 
     if (this.mostrarEliminatoria) {
-      this.faseEliminatoriaUrl = `assets/fases-eliminatorias/fase-disciplina-${this.disciplinaId}.png`;
+      this.loadUltimaImagen(this.torneoId, this.disciplinaId);
     } else {
-      this.faseEliminatoriaUrl = null;
+      this.ultimaImagenUrl = null;
     }
   }
 }

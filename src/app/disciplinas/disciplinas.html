@@ -1,7 +1,9 @@
 <h1>Disciplinas</h1>
 
-<div>
-    <button *ngFor="let d of disciplinas" (click)="seleccionarDisciplina(d)">
+<div class="botones-disciplinas">
+    <button *ngFor="let d of disciplinas"
+                (click)="seleccionarDisciplina(d)"
+                [class.selected]="disciplinaSeleccionada?.id === d.id">
         {{ d.nombre }}
     </button>
 </div>

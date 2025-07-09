@@ -21,6 +21,10 @@ export class PartidosService {
     return this.http.get<any[]>(`${this.apiUrl}/disciplina/${disciplinaId}/anio/${anio}`);
   }
 
+  getGanadorPorDisciplinaYAnio(disciplinaId: number, anio: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/disciplina/${disciplinaId}/anio/${anio}/ganador`);
+  }
+
   create(data: any, token: string): Observable<any> {
     return this.http.post(`${this.apiUrl}`, data, {
       headers: new HttpHeaders({ Authorization: `Bearer ${token}` })

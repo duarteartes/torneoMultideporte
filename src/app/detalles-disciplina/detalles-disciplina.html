@@ -1,39 +1,90 @@
-<button (click)="toggleEquipos()">Equipos</button>
-<button (click)="toggleEliminatoria()">Fase eliminatoria</button>
+<div class="botones-toggle">
+    <button class="secondary" [class.selected]="mostrarEquipos" (click)="toggleEquipos()">Equipos</button>
+    <button class="secondary" [class.selected]="mostrarEliminatoria" (click)="toggleEliminatoria()">Fase eliminatoria</button>
+</div>
 
 <div *ngIf="mostrarEquipos && equipos?.length">
     <h3>Equipos</h3>
-    <ul>
-        <li *ngFor="let equipo of equipos; let i = index">
-            {{ equipo.nombre }}
-            <button (click)="togglePartidos(i)">+</button>
+    <ul class="equipos-list">
+        <li *ngFor="let equipo of equipos; let i = index" class="equipo-card">
+            <div class="equipo-header">
+                {{ equipo.nombre }}
+            </div>
 
-            <ul *ngIf="equiposConPartidosAbiertos[i]">
-                <li *ngFor="let partido of getPartidosPorEquipo(equipo.id)">
-                    <!-- Fecha formateada -->
-                    {{ partido.fecha | date:'dd/MM/yyyy HH:mm' }} -
-                    {{ partido.equipo_local_nombre }} vs {{ partido.equipo_visitante_nombre }} -
-                    <span *ngIf="partido.resultado_local !== null && partido.resultado_visitante !== null">
-                        Resultado: {{ partido.resultado_local }} - {{ partido.resultado_visitante }}
-                    </span>
-                    <span *ngIf="partido.resultado_local === null || partido.resultado_visitante === null">
-                        Partido no jugado aún
-                    </span>
+            <ul *ngIf="equiposConPartidosAbiertos[i]" class="partidos-list">
+                <li *ngFor="let partido of getPartidosPorEquipo(equipo.id)" class="partido-item">
+                    <div class="partido-linea1">
+                        <span class="fecha">{{ partido.fecha | date:'dd/MM/yyyy HH:mm' }}</span>
+                        <span class="equipos">
+                            {{ partido.equipo_local_nombre }} <span class="vs">vs</span> {{ partido.equipo_visitante_nombre }}
+                        </span>
+                    </div>
+                    <div class="partido-linea2">
+                        <span *ngIf="partido.resultado_local !== null && partido.resultado_visitante !== null">
+                            {{ partido.resultado_local }} – {{ partido.resultado_visitante }}
+                        </span>
+                        <span *ngIf="partido.resultado_local === null || partido.resultado_visitante === null">
+                            (no jugado aún)
+                        </span>
+                    </div>
                 </li>
             </ul>
+
+            <div class="equipo-footer">
+                <button
+                    class="secondary"
+                    [class.selected]="equiposConPartidosAbiertos[i]"
+                    (click)="togglePartidos(i)"
+                >
+                    {{ equiposConPartidosAbiertos[i] ? 'OCULTAR DETALLES' : 'VER DETALLES' }}
+                </button>
+            </div>
         </li>
     </ul>
 </div>
 
-
 <div *ngIf="mostrarEliminatoria">
-    <h3>Cuadro Eliminatorio</h3>
+  <h3>Cuadro Eliminatorio</h3>
+  <ng-container *ngIf="ultimaImagenUrl; else sinImagen">
+    <img [src]="ultimaImagenUrl" alt="Última imagen del cuadro eliminatorio">
+  </ng-container>
+  <ng-template #sinImagen>
+    <p>No hay imagen subida aún para esta eliminatoria.</p>
+  </ng-template>
+</div>
 
-    <ng-container *ngIf="ultimaImagenUrl; else sinImagen">
-        <img [src]="ultimaImagenUrl" alt="Última imagen del cuadro eliminatorio">
-    </ng-container>
+<div *ngIf="mostrarEquipos && ganador">
+  <h3>🏆 Equipo Ganador</h3>
+  <ul class="equipos-list">
+    <li class="equipo-card ganador">
+      <div class="equipo-header">
+        {{ ganador.equipo_ganador_nombre }}
+      </div>
 
-    <ng-template #sinImagen>
-        <p>No hay imagen subida aún para esta eliminatoria.</p>
-    </ng-template>
+      <ul *ngIf="ganador.partidos && ganador.partidos.length" class="partidos-list">
+        <li *ngFor="let partido of ganador.partidos" class="partido-item">
+          <div class="partido-linea1">
+            <span class="fecha">{{ partido.fecha | date:'dd/MM/yyyy HH:mm' }}</span>
+            <span class="equipos">
+              {{ partido.equipo_local_nombre }} <span class="vs">vs</span> {{ partido.equipo_visitante_nombre }}
+            </span>
+          </div>
+          <div class="partido-linea2">
+            <span *ngIf="partido.resultado_local !== null && partido.resultado_visitante !== null">
+              {{ partido.resultado_local }} – {{ partido.resultado_visitante }}
+            </span>
+            <span *ngIf="partido.resultado_local === null || partido.resultado_visitante === null">
+              (no jugado aún)
+            </span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="equipo-footer">
+        <button class="secondary">
+          ¡Felicidades!
+        </button>
+      </div>
+    </li>
+  </ul>
 </div>

@@ -3,6 +3,8 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem;
+    background-color: #1a1a1a; /* mismo fondo oscuro que el header */
+    color: #e0e0e0; /* texto claro general */
 }
 
 .anios,
@@ -17,6 +19,8 @@
 .disciplinas h2,
 .partidos h3 {
     margin-bottom: 1.5rem;
+    color: #b0b0b0; /* gris claro para títulos */
+    text-align: center; /* añadir para asegurar centrado */
 }
 
 /* Contenedores flex para botones */
@@ -34,13 +38,12 @@
     flex: 1 1 calc(25% - 1rem);
     max-width: 280px;
     min-width: 140px;
-    background-color: #1976d2;
-    color: white;
+    background-color: #333333; /* gris oscuro */
+    color: #e0e0e0;
     font-size: 1.25rem;
     padding: 0.75rem 2rem;
     border-radius: 4px;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(25, 118, 210, 0.4);
     border: none;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
@@ -49,14 +52,13 @@
 
 .botones-anios button:hover,
 .botones-disciplinas button:hover {
-    background-color: #1565c0;
-    box-shadow: 0 4px 8px rgba(21, 101, 192, 0.5);
+    background-color: #4a4a4a; /* gris medio */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
 .botones-anios button.selected,
 .botones-disciplinas button.selected {
-    background-color: #0d47a1;
-    box-shadow: 0 0 12px rgba(13, 71, 161, 0.8);
+    background-color: #666666; /* gris más claro */
 }
 
 /* Responsive: tablets */
@@ -81,18 +83,18 @@
 .partidos {
     width: 90%;
     max-width: 1200px;
-    margin-top: 2rem;
+    margin: 2rem auto 0 auto; /* centrado horizontal */
 }
 
 .fase-bloque {
-    width: 90%;
-    max-width: 1200px;
+    width: 100%; /* que ocupe todo el ancho del padre */
+    max-width: none;
     margin-bottom: 3rem;
 }
 
 .fase-bloque h3 {
     margin-bottom: 1rem;
-    color: #0d47a1;
+    color: #b0b0b0;
     font-weight: 700;
     text-align: center;
 }
@@ -111,28 +113,28 @@
     max-width: 350px;
     min-width: 280px;
     box-sizing: border-box;
-
-    background: #f4f6f8;
+    background: #222222; /* fondo oscuro para tarjetas */
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-left: 5px solid #1976d2;
+    border-left: 5px solid #444444; /* gris oscuro para el borde */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: #e0e0e0;
 }
 
 .partido-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 16px rgba(102, 102, 102, 0.9);
 }
 
 /* Fase destacada */
 .partido-card .fase {
     font-weight: 700;
     font-size: 1.2rem;
-    color: #0d47a1;
+    color: #cccccc; /* gris claro */
     margin-bottom: 0.5rem;
     text-align: center;
 }
@@ -140,7 +142,7 @@
 /* Fecha */
 .partido-card .fecha {
     font-size: 1rem;
-    color: #555;
+    color: #999999; /* gris medio */
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -153,7 +155,7 @@
     justify-content: center;
     align-items: center;
     gap: 0.75rem;
-    color: #333;
+    color: #e0e0e0;
 }
 
 .equipo-local,
@@ -163,7 +165,7 @@
 
 .vs {
     font-weight: bold;
-    color: #888;
+    color: #777777; /* gris medio */
 }
 
 /* Responsive: tablets 2 por fila */
