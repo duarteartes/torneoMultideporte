@@ -8,32 +8,7 @@
     </ul>
 </div>
 
-<div *ngIf="mostrarEliminatoria && equipos && equipos.length >= 4" class="bracket-container">
+<div *ngIf="mostrarEliminatoria && faseEliminatoriaUrl">
     <h3>Cuadro Eliminatorio</h3>
-
-    <div class="bracket">
-        <div class="round round-1">
-            <div class="match">
-                <span>{{ equipos[0]?.nombre }}</span>
-                <span>{{ equipos[1]?.nombre }}</span>
-            </div>
-            <div class="match">
-                <span>{{ equipos[2]?.nombre }}</span>
-                <span>{{ equipos[3]?.nombre }}</span>
-            </div>
-        </div>
-
-        <div class="round round-2">
-            <div class="match">
-                <span>Ganador 1</span>
-                <span>Ganador 2</span>
-            </div>
-        </div>
-
-        <div class="round final">
-            <div class="match">
-                <span>Ganador Final</span>
-            </div>
-        </div>
-    </div>
+    <img [src]="faseEliminatoriaUrl" alt="Fase eliminatoria de la disciplina">
 </div>

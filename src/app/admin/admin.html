@@ -87,13 +87,40 @@
       </label>
       <label>
         Fase:
-        <input formControlName="fase" placeholder="Fase del partido">
+        <select formControlName="fase">
+          <option value="" disabled selected>-- Selecciona fase --</option>
+          <option value="Dieciseisavos">Dieciseisavos</option>
+          <option value="Octavos">Octavos</option>
+          <option value="Cuartos">Cuartos</option>
+          <option value="Semifinales">Semifinales</option>
+          <option value="Final">Final</option>
+        </select>
       </label>
       <label>
         Fecha:
         <input type="date" formControlName="fecha">
       </label>
       <button type="submit" [disabled]="crearPartidoForm.invalid">Crear Partido</button>
+    </form>
+  </section>
+
+  <!-- FORM: Cargar Fase Eliminatoria -->
+  <section class="form-cargar-fase-eliminatoria">
+    <h3>Cargar Fase Eliminatoria</h3>
+    <form (ngSubmit)="cargarFaseEliminatoria()">
+      <label>
+        Selecciona imagen:
+        <input
+          type="file"
+          name="imagen"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          required
+        />
+      </label>
+      <button type="submit" [disabled]="!selectedFile">
+        Subir Imagen
+      </button>
     </form>
   </section>
 

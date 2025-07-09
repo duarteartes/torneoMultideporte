@@ -25,6 +25,7 @@ export class Admin implements OnInit {
 
   disciplinaSeleccionada: number | null = null;
   mensaje = '';
+  selectedFile: File | null = null;
 
   crearEquipoForm!: FormGroup;
   editarEquipoForm!: FormGroup;
@@ -152,7 +153,9 @@ export class Admin implements OnInit {
         this.equipoEditando = null;
         this.editarEquipoForm.reset();
         this.loadEquipos();
+        this.loadPartidos(); // ✅ Refresca los partidos también
       },
+
       error: err => this.showMessage(err.error?.message || 'Error actualizando equipo')
     });
   }
@@ -246,4 +249,40 @@ export class Admin implements OnInit {
   trackById(index: number, item: any): number {
     return item.id;
   }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  cargarFaseEliminatoria() {
+    if (!this.selectedFile || !this.disciplinaSeleccionada) {
+      this.showMessage('Debe seleccionar disciplina e imagen.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('imagen', this.selectedFile);
+    formData.append('torneo_id', '1');
+
+    this.partidosService
+      .subirFaseEliminatoria(
+        this.disciplinaSeleccionada,
+        formData,
+        this.token
+      )
+      .subscribe({
+        next: (res) => {
+          this.showMessage(`Imagen subida: ${res.filename}`);
+          this.selectedFile = null;
+        },
+        error: (err) => {
+          console.error(err);
+          this.showMessage(err.error?.error || 'Error subiendo imagen');
+        },
+      });
+  }
+
 }

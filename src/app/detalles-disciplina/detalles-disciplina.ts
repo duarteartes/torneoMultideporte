@@ -18,6 +18,7 @@ export class DetallesDisciplina implements OnInit, OnChanges {
 
   mostrarEquipos = false;
   mostrarEliminatoria = false;
+  faseEliminatoriaUrl: string | null = null;
 
   constructor(private disciplinaService: DisciplinasService) {}
 
@@ -64,5 +65,11 @@ export class DetallesDisciplina implements OnInit, OnChanges {
   toggleEliminatoria() {
     this.mostrarEliminatoria = !this.mostrarEliminatoria;
     this.mostrarEquipos = false;
+
+    if (this.mostrarEliminatoria) {
+      this.faseEliminatoriaUrl = `assets/fases-eliminatorias/fase-disciplina-${this.disciplinaId}.png`;
+    } else {
+      this.faseEliminatoriaUrl = null;
+    }
   }
 }

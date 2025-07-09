@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 
 export class PartidosService {
   private apiUrl = 'http://localhost:3000/api/partidos';
+  private uploadUrl = 'http://localhost:3000/api/uploads';
 
   constructor(private http: HttpClient) {}
 
@@ -36,5 +37,19 @@ export class PartidosService {
     return this.http.delete(`${this.apiUrl}/${id}`, {
       headers: new HttpHeaders({ Authorization: `Bearer ${token}` })
     });
+  }
+
+  subirFaseEliminatoria(
+    disciplinaId: number,  // antes disciplinaNombre: number
+    formData: FormData,
+    token: string
+  ): Observable<{ filename: string }> {
+    return this.http.post<{ filename: string }>(
+      `${this.uploadUrl}/upload/${disciplinaId}`,  // ahora el id en la URL
+      formData,
+      {
+        headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
+      }
+    );
   }
 }
