@@ -4,9 +4,27 @@
 <div *ngIf="mostrarEquipos && equipos?.length">
     <h3>Equipos</h3>
     <ul>
-        <li *ngFor="let equipo of equipos">{{ equipo.nombre }}</li>
+        <li *ngFor="let equipo of equipos; let i = index">
+            {{ equipo.nombre }}
+            <button (click)="togglePartidos(i)">+</button>
+
+            <ul *ngIf="equiposConPartidosAbiertos[i]">
+                <li *ngFor="let partido of getPartidosPorEquipo(equipo.id)">
+                    <!-- Fecha formateada -->
+                    {{ partido.fecha | date:'dd/MM/yyyy HH:mm' }} -
+                    {{ partido.equipo_local_nombre }} vs {{ partido.equipo_visitante_nombre }} -
+                    <span *ngIf="partido.resultado_local !== null && partido.resultado_visitante !== null">
+                        Resultado: {{ partido.resultado_local }} - {{ partido.resultado_visitante }}
+                    </span>
+                    <span *ngIf="partido.resultado_local === null || partido.resultado_visitante === null">
+                        Partido no jugado aún
+                    </span>
+                </li>
+            </ul>
+        </li>
     </ul>
 </div>
+
 
 <div *ngIf="mostrarEliminatoria">
     <h3>Cuadro Eliminatorio</h3>

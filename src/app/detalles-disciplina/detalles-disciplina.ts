@@ -20,6 +20,7 @@ export class DetallesDisciplina implements OnInit, OnChanges {
   mostrarEquipos = false;
   mostrarEliminatoria = false;
   faseEliminatoriaUrl: string | null = null;
+  equiposConPartidosAbiertos: boolean[] = [];
 
   ultimaImagenUrl: string | null = null;
   torneoId = 1; // o el ID del torneo activo que tengas, definirlo según contexto
@@ -53,12 +54,14 @@ export class DetallesDisciplina implements OnInit, OnChanges {
   loadEquipos(id: number) {
     this.disciplinaService.getEquiposPorDisciplina(id).subscribe(data => {
       this.equipos = data;
+      this.equiposConPartidosAbiertos = new Array(this.equipos.length).fill(false);
     });
   }
 
   loadPartidos(id: number) {
-    this.disciplinaService.getPartidosPorDisciplina(id).subscribe(data => {
-      this.partidos = data;
+    this.partidosService.getByDisciplinaYAnio(id, new Date().getFullYear()).subscribe({
+      next: partidos => this.partidos = partidos,
+      error: err => console.error('Error cargando partidos:', err)
     });
   }
 
@@ -74,9 +77,19 @@ export class DetallesDisciplina implements OnInit, OnChanges {
     });
   }
 
+  getPartidosPorEquipo(equipoId: number) {
+    return this.partidos
+      .filter(p => p.equipo_local_id === equipoId || p.equipo_visitante_id === equipoId)
+      .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+  }
+
   toggleEquipos() {
     this.mostrarEquipos = !this.mostrarEquipos;
     this.mostrarEliminatoria = false;
+  }
+
+  togglePartidos(index: number) {
+    this.equiposConPartidosAbiertos[index] = !this.equiposConPartidosAbiertos[index];
   }
 
   toggleEliminatoria() {
