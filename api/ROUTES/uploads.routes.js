@@ -149,4 +149,55 @@ router.get('/:torneoId/:disciplinaId', async (req, res) => {
     }
 });
 
+// GET: obtener la última imagen subida por torneoId y disciplinaId
+router.get('/ultima/:torneoId/:disciplinaId', async (req, res) => {
+    const torneoId = parseInt(req.params.torneoId, 10);
+    const disciplinaId = parseInt(req.params.disciplinaId, 10);
+
+    if (isNaN(torneoId) || isNaN(disciplinaId)) {
+        return res.status(400).json({ error: 'Parámetros inválidos: torneoId y disciplinaId deben ser números' });
+    }
+
+    try {
+        const connection = await mysql.createConnection({
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: 'torneoMultideporte',
+            port: process.env.DB_PORT,
+        });
+
+        // Verificar que la disciplina existe
+        const [disciplinaRows] = await connection.execute(
+            'SELECT nombre FROM disciplinas WHERE id = ?',
+            [disciplinaId]
+        );
+
+        if (disciplinaRows.length === 0) {
+            await connection.end();
+            return res.status(404).json({ error: 'Disciplina no encontrada' });
+        }
+
+        // Obtener la última imagen ordenando por fecha_subida descendente, limit 1
+        const [result] = await connection.execute(
+                `SELECT id, filename, ruta, fecha_subida FROM cuadros_eliminatorios
+                WHERE torneo_id = ? AND disciplina_id = ?
+                ORDER BY fecha_subida DESC
+                LIMIT 1`,
+            [torneoId, disciplinaId]
+        );
+
+        await connection.end();
+
+        if (result.length === 0) {
+            return res.status(404).json({ error: 'No se encontró ninguna imagen para esta disciplina y torneo' });
+        }
+
+        res.json(result[0]);
+    } catch (err) {
+        console.error('Error al obtener última imagen:', err);
+        res.status(500).json({ error: 'Error al acceder a la base de datos' });
+    }
+});
+
 module.exports = router;

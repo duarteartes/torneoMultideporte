@@ -52,4 +52,12 @@ export class PartidosService {
       }
     );
   }
+
+  getImagenesCuadro(torneoId: number, disciplinaId: number) {
+    return this.http.get<any[]>(`http://localhost:3000/api/uploads/${torneoId}/${disciplinaId}`);
+  }
+
+  getUltimaImagenCuadro(torneoId: number, disciplinaId: number) {
+    return this.http.get<any>(`http://localhost:3000/api/uploads/ultima/${torneoId}/${disciplinaId}`);
+  }
 }

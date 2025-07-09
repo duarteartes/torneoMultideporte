@@ -32,6 +32,7 @@ export class Admin implements OnInit {
   crearPartidoForm!: FormGroup;
 
   equipoEditando: any | null = null;
+  imagenesCuadro: any[] = [];
 
   private get token(): string {
     return localStorage.getItem('token') || '';
@@ -76,6 +77,23 @@ export class Admin implements OnInit {
     });
   }
 
+  loadImagenesCuadro() {
+    if (this.disciplinaSeleccionada == null) {
+      this.imagenesCuadro = [];
+      return;
+    }
+    const torneoId = 1; // si el torneo es siempre 1, si no adapta
+    this.partidosService.getImagenesCuadro(torneoId, this.disciplinaSeleccionada).subscribe({
+      next: (imgs) => {
+        this.imagenesCuadro = imgs;
+      },
+      error: () => {
+        this.showMessage('Error cargando imágenes del cuadro eliminatorio');
+        this.imagenesCuadro = [];
+      }
+    });
+  }
+
   loadEquipos() {
     this.equiposService.getAll().subscribe({
       next: e => {
@@ -90,6 +108,7 @@ export class Admin implements OnInit {
     this.disciplinaSeleccionada = id;
     this.filterEquipos();
     this.loadPartidos();
+    this.loadImagenesCuadro();
   }
 
   private filterEquipos() {
@@ -277,6 +296,7 @@ export class Admin implements OnInit {
         next: (res) => {
           this.showMessage(`Imagen subida: ${res.filename}`);
           this.selectedFile = null;
+          this.loadImagenesCuadro();
         },
         error: (err) => {
           console.error(err);

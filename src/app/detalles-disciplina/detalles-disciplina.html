@@ -8,7 +8,14 @@
     </ul>
 </div>
 
-<div *ngIf="mostrarEliminatoria && faseEliminatoriaUrl">
+<div *ngIf="mostrarEliminatoria">
     <h3>Cuadro Eliminatorio</h3>
-    <img [src]="faseEliminatoriaUrl" alt="Fase eliminatoria de la disciplina">
+
+    <ng-container *ngIf="ultimaImagenUrl; else sinImagen">
+        <img [src]="ultimaImagenUrl" alt="Última imagen del cuadro eliminatorio">
+    </ng-container>
+
+    <ng-template #sinImagen>
+        <p>No hay imagen subida aún para esta eliminatoria.</p>
+    </ng-template>
 </div>

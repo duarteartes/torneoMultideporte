@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DisciplinasService } from '../services/disciplinas';
+import { PartidosService } from '../services/partidos';
 
 @Component({
   selector: 'app-detalles-disciplina',
@@ -20,7 +21,10 @@ export class DetallesDisciplina implements OnInit, OnChanges {
   mostrarEliminatoria = false;
   faseEliminatoriaUrl: string | null = null;
 
-  constructor(private disciplinaService: DisciplinasService) {}
+  ultimaImagenUrl: string | null = null;
+  torneoId = 1; // o el ID del torneo activo que tengas, definirlo según contexto
+
+  constructor(private disciplinaService: DisciplinasService, private partidosService: PartidosService) {}
 
   ngOnInit(): void {
     if (this.disciplinaId) {
@@ -36,6 +40,7 @@ export class DetallesDisciplina implements OnInit, OnChanges {
       this.loadDisciplina(id);
       this.loadEquipos(id);
       this.loadPartidos(id);
+      this.loadUltimaImagen(this.torneoId, id);
     }
   }
 
@@ -54,6 +59,18 @@ export class DetallesDisciplina implements OnInit, OnChanges {
   loadPartidos(id: number) {
     this.disciplinaService.getPartidosPorDisciplina(id).subscribe(data => {
       this.partidos = data;
+    });
+  }
+
+  loadUltimaImagen(torneoId: number, disciplinaId: number) {
+    this.partidosService.getUltimaImagenCuadro(torneoId, disciplinaId).subscribe({
+      next: (data) => {
+        this.ultimaImagenUrl = data?.ruta ? `http://localhost:3000${data.ruta}` : null;
+      },
+      error: (err) => {
+        console.warn('No se encontró última imagen', err);
+        this.ultimaImagenUrl = null;
+      }
     });
   }
 

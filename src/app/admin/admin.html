@@ -124,6 +124,17 @@
     </form>
   </section>
 
+  <div *ngIf="imagenesCuadro.length > 0" class="imagenes-cuadro">
+    <h3>Imágenes del Cuadro Eliminatorio</h3>
+    <div class="galeria-imagenes">
+      <img *ngFor="let img of imagenesCuadro" 
+            [src]="'http://localhost:3000' + img.ruta" 
+            [alt]="img.filename" 
+            class="imagen-cuadro" />
+    </div>
+  </div>
+
+
   <!-- LISTA DE PARTIDOS -->
   <section class="lista-partidos">
     <h3>Partidos {{ anioActual }}</h3>
