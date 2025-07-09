@@ -1,0 +1,132 @@
+/* Tipografía base */
+:host {
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #1a1a1a;
+    z-index: 10000; /* para que esté encima de todo */
+}
+
+.header-content {
+    width: 90vw;           /* ancho contenido 90% ventana */
+    max-width: 1500px;     /* límite máximo */
+    margin: 0 auto;        /* centrar horizontal */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;       /* vertical solo para no aumentar mucho */
+}
+
+/* Parte izquierda */
+.nav-left {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.nav-left li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+}
+
+.nav-left li a:hover {
+    color: #f0c040;
+}
+
+/* Parte derecha */
+.nav-right {
+    position: relative;
+}
+
+.nav-right .material-icons {
+    color: #fff;
+    cursor: pointer;
+    font-size: 28px;
+}
+
+.user-menu {
+    position: relative;
+    list-style: none;
+}
+
+.dropdown {
+    min-width: 160px;
+    position: absolute;
+    right: 0;
+    top: 120%;
+    background: #333;
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.dropdown li {
+    padding: 0.5rem 1rem;
+}
+
+.dropdown li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown li a:hover {
+    background: #444;
+}
+
+/* Botón hamburguesa */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background: #fff;
+    margin: 4px 0;
+    transition: 0.3s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-left {
+        display: none;
+        flex-direction: column;
+        background: #1a1a1a;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .nav-left.active {
+        display: flex;
+    }
+
+    .nav-left li {
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-right {
+        position: absolute;
+        top: 1rem;
+        right: 2rem;
+    }
+}

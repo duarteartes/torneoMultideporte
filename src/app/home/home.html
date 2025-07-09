@@ -1,33 +1,41 @@
-<h1>Home cargado</h1>
-
 <div class="anios">
   <h2>Años disponibles</h2>
-  <button
-    *ngFor="let anio of anios"
-    [class.selected]="anio === anioSeleccionado"
-    (click)="seleccionarAnio(anio)"
-  >
-    {{ anio }}
-  </button>
+  <div class="botones-anios">
+    <button
+      *ngFor="let anio of anios"
+      [class.selected]="anio === anioSeleccionado"
+      (click)="seleccionarAnio(anio)"
+    >
+      {{ anio }}
+    </button>
+  </div>
 </div>
 
 <div class="disciplinas" *ngIf="disciplinas.length > 0">
   <h2>Disciplinas del {{ anioSeleccionado }}</h2>
-  <button
-    *ngFor="let d of disciplinas"
-    [class.selected]="d.id === disciplinaSeleccionada"
-    (click)="seleccionarDisciplina(d.id)"
-  >
-    {{ d.nombre }}
-  </button>
+  <div class="botones-disciplinas">
+    <button
+      *ngFor="let d of disciplinas"
+      [class.selected]="d.id === disciplinaSeleccionada"
+      (click)="seleccionarDisciplina(d.id)"
+    >
+      {{ d.nombre }}
+    </button>
+  </div>
 </div>
 
-<div class="partidos" *ngIf="partidos.length > 0">
-  <h3>Partidos</h3>
-  <ul>
-    <li *ngFor="let p of partidos">
-      {{ p.fase }} | {{ p.equipo_local_nombre }} vs {{ p.equipo_visitante_nombre }} |
-      {{ p.fecha | date: 'dd MMM yyyy, HH:mm' }}
-    </li>
-  </ul>
+<div class="partidos" *ngIf="partidosPorFase.length > 0">
+  <div *ngFor="let grupo of partidosPorFase" class="fase-bloque">
+    <h3>{{ grupo.fase }}</h3>
+    <div class="cards-fase">
+      <div *ngFor="let p of grupo.partidos" class="partido-card">
+        <div class="fecha">{{ p.fecha | date: 'dd MMM yyyy, HH:mm' }}</div>
+        <div class="equipos">
+          <span class="equipo-local">{{ p.equipo_local_nombre }}</span>
+          <span class="vs">vs</span>
+          <span class="equipo-visitante">{{ p.equipo_visitante_nombre }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

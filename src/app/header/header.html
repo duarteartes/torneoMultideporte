@@ -1,26 +1,33 @@
 <nav class="header">
-    <div class="logo">
-        <!-- Si tienes un logo o nombre -->
-        <a routerLink="/">Torneo</a>
-    </div>
+    <div class="header-content">
+        <!-- Botón hamburguesa -->
+        <div class="menu-toggle" (click)="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-    <ul class="nav-links">
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/disciplinas">Disciplinas</a></li>
-        <li><a routerLink="/inscripciones">Inscripciones</a></li>
-        <li class="user-menu" *ngIf="auth.isLoggedIn(); else loginLink">
-            <span class="material-icons" (click)="toggleDropdown()">person</span>
-            <ul class="dropdown" *ngIf="showDropdown">
-                <li><a routerLink="/admin" (click)="toggleDropdown()">Ir a Admin</a></li>
-                <li><a href="#" (click)="logout()">Cerrar sesión</a></li>
-            </ul>
-        </li>
-        <ng-template #loginLink>
-            <li>
-                <a routerLink="/login">
+        <!-- Parte izquierda -->
+        <ul class="nav-left" [class.active]="menuOpen">
+            <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
+            <li><a routerLink="/disciplinas" (click)="closeMenu()">Disciplinas</a></li>
+            <li><a routerLink="/inscripciones" (click)="closeMenu()">Inscripciones</a></li>
+        </ul>
+
+        <!-- Parte derecha: icono usuario -->
+        <div class="nav-right">
+            <li class="user-menu" *ngIf="auth.isLoggedIn(); else loginLink">
+                <span class="material-icons" (click)="toggleDropdown()">person</span>
+                <ul class="dropdown" *ngIf="showDropdown">
+                    <li><a routerLink="/admin" (click)="toggleDropdown(); closeMenu()">Ir a Admin</a></li>
+                    <li><a href="#" (click)="logout(); closeMenu()">Cerrar sesión</a></li>
+                </ul>
+            </li>
+            <ng-template #loginLink>
+                <a routerLink="/login" (click)="closeMenu()">
                     <span class="material-icons">person</span>
                 </a>
-            </li>
-        </ng-template>
-    </ul>
+            </ng-template>
+        </div>
+    </div>
 </nav>

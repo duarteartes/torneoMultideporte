@@ -11,9 +11,20 @@ import { Auth } from '../services/auth';
 })
 
 export class Header {
+  menuOpen = false;
   showDropdown = false;
 
   constructor(public auth: Auth) {}
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+    this.showDropdown = false;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+    this.showDropdown = false;
+  }
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
