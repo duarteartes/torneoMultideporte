@@ -1,13 +1,13 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1.5rem;
-  background-color: #1a1a1a;
-  color: #e0e0e0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* Evitar scroll horizontal general */
-  overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Evitar scroll horizontal general */
+    overflow-x: hidden;
 }
 
 /* Contenedores generales centrados y 90% de ancho */
@@ -19,108 +19,108 @@
 .form-cargar-fase-eliminatoria,
 .lista-partidos,
 .imagenes-cuadro {
-  width: 90%;
-  max-width: 800px;
-  margin: 0 auto 2rem auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Títulos */
 h2, h3 {
-  color: #b0b0b0;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-weight: 700;
+    color: #b0b0b0;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 700;
 }
 
 /* Botones disciplinas */
 .botones-disciplinas {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
-  width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    width: 100%;
 }
 
 .botones-disciplinas button {
-  flex: 1 1 calc(25% - 1rem);
-  max-width: 200px;
-  min-width: 120px;
-  background-color: #333333;
-  color: #e0e0e0;
-  font-size: 1rem;
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
-  text-align: center;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    flex: 1 1 calc(25% - 1rem);
+    max-width: 200px;
+    min-width: 120px;
+    background-color: #333333;
+    color: #e0e0e0;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .botones-disciplinas button:hover {
-  background-color: #4a4a4a;
+    background-color: #4a4a4a;
 }
 
 .botones-disciplinas button.selected {
-  background-color: #666666;
+    background-color: #666666;
 }
 
 /* Formularios */
 form {
-  background-color: #222222;
-  padding: 1.5rem 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.7);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  max-width: 600px;
+    background-color: #222222;
+    padding: 1.5rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 600px;
 }
 
 .form-crear-equipo form {
-  width: 90%;
-  max-width: 600px;
-  background-color: #222222;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.7);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+    width: 90%;
+    max-width: 600px;
+    background-color: #222222;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 /* Título */
 .form-crear-equipo h3 {
-  color: #b0b0b0;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-weight: 700;
+    color: #b0b0b0;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 700;
 }
 
 /* Bloque de campo */
 .form-crear-equipo div {
-  width: 100%;
+    width: 100%;
 }
 
 /* Etiquetas */
 label {
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  width: 100%;
-  color: #b0b0b0;
-  font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    width: 100%;
+    color: #b0b0b0;
+    font-weight: 600;
 }
 
 .form-crear-equipo label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #b0b0b0;
-  font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #b0b0b0;
+    font-weight: 600;
 }
 
 /* Inputs y selects */
@@ -129,309 +129,309 @@ input[type="date"],
 input[type="number"],
 input[type="file"],
 select {
-  margin-top: 0.3rem;
-  padding: 0.75rem 1rem;
-  background-color: #333333;
-  color: #e0e0e0;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
+    margin-top: 0.3rem;
+    padding: 0.75rem 1rem;
+    background-color: #333333;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 input::placeholder {
-  color: #999999;
+    color: #999999;
 }
 
 .form-crear-equipo input[type="text"] {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background-color: #333333;
-  color: #e0e0e0;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #333333;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
 }
 
 .form-crear-equipo input[type="text"]::placeholder {
-  color: #999999;
+    color: #999999;
 }
 
 button {
-  background-color: #333333;
-  color: #e0e0e0;
-  font-size: 1.1rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease;
-  align-self: center;
+    background-color: #333333;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    align-self: center;
 }
 
 button:hover:not(:disabled) {
-  background-color: #4a4a4a;
+    background-color: #4a4a4a;
 }
 
 button:disabled {
-  background-color: #555555;
-  cursor: not-allowed;
+    background-color: #555555;
+    cursor: not-allowed;
 }
 
 .form-crear-equipo button {
-  background-color: #333333;
-  color: #e0e0e0;
-  font-size: 1.1rem;
-  padding: 0.75rem 2rem;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  align-self: center;
+    background-color: #333333;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    align-self: center;
 }
 
 .form-crear-equipo button:hover:not(:disabled) {
-  background-color: #4a4a4a;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+    background-color: #4a4a4a;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
 .form-crear-equipo button:disabled {
-  background-color: #555555;
-  cursor: not-allowed;
+    background-color: #555555;
+    cursor: not-allowed;
 }
 
 /* Centrar botón mostrar/ocultar tabla */
 .toggle-tabla {
-  display: block;
-  margin: 0 auto 1.5rem auto;
-  background-color: #333333;
-  color: #e0e0e0;
-  font-size: 1rem;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease;
-  max-width: 250px;
-  text-align: center;
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    background-color: #333333;
+    color: #e0e0e0;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    max-width: 250px;
+    text-align: center;
 }
 
 .toggle-tabla:hover {
-  background-color: #4a4a4a;
+    background-color: #4a4a4a;
 }
 
 /* Error */
 .error {
-  color: #ff4d4d;
-  font-size: 0.9rem;
-  margin-top: 0.3rem;
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
 }
 
 /* Lista equipos */
 .lista-equipos ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 .lista-equipos li {
-  background-color: #222222;
-  margin-bottom: 0.8rem;
-  padding: 1rem;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+    background-color: #222222;
+    margin-bottom: 0.8rem;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .lista-equipos .acciones {
-  display: flex;
-  gap: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
 }
 
 .lista-equipos li button {
-  background: none;
-  border: none;
-  color: #e0e0e0;
-  cursor: pointer;
-  font-size: 1.2rem;
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    cursor: pointer;
+    font-size: 1.2rem;
 }
 
 .lista-equipos li button:hover {
-  color: #f0f0f0;
+    color: #f0f0f0;
 }
 
 /* Galería imágenes */
 .galeria-imagenes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
 }
 
 .imagen-cuadro {
-  max-width: 100%;
-  width: 180px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    max-width: 100%;
+    width: 180px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
 }
 
 /* Tabla partidos */
 .lista-partidos {
-  width: 100%;
-  max-width: 1300px;
-  overflow-x: auto; /* Scroll horizontal solo para esta sección */
-  -webkit-overflow-scrolling: touch; /* Suavizado en iOS */
-  border-radius: 8px;
-  background-color: #222222;
-  padding: 0.5rem 0; /* Separación arriba y abajo */
+    width: 100%;
+    max-width: 1300px;
+    overflow-x: auto; /* Scroll horizontal solo para esta sección */
+    -webkit-overflow-scrolling: touch; /* Suavizado en iOS */
+    border-radius: 8px;
+    background-color: #222222;
+    padding: 0.5rem 0; /* Separación arriba y abajo */
 }
 
 .lista-partidos table {
-  width: max-content; /* Para que la tabla se expanda y active scroll */
-  min-width: 100%; /* Que ocupe al menos el 100% del contenedor */
-  border-collapse: collapse;
-  color: #e0e0e0;
-  font-size: 0.9rem;
+    width: max-content; /* Para que la tabla se expanda y active scroll */
+    min-width: 100%; /* Que ocupe al menos el 100% del contenedor */
+    border-collapse: collapse;
+    color: #e0e0e0;
+    font-size: 0.9rem;
 }
 
 .lista-partidos th,
 .lista-partidos td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #444444;
-  text-align: center;
-  white-space: nowrap; /* Evita que se partan palabras */
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #444444;
+    text-align: center;
+    white-space: nowrap; /* Evita que se partan palabras */
 }
 
 .lista-partidos th {
-  background-color: #333333;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+    background-color: #333333;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .lista-partidos input[type="date"],
 .lista-partidos input[type="number"] {
-  width: 100%;
-  max-width: 100px;
+    width: 100%;
+    max-width: 100px;
 }
 
 .lista-partidos button {
-  font-size: 0.9rem;
-  padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
 }
 
 /* Botón colapsar tabla */
 .btn-colapsar-tabla {
-  align-self: flex-end;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-  padding: 0.4rem 0.8rem;
-  background-color: #333333;
-  color: #e0e0e0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    align-self: flex-end;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #333333;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .btn-colapsar-tabla:hover {
-  background-color: #4a4a4a;
+    background-color: #4a4a4a;
 }
 
 /* Mensaje centrado */
 .mensaje {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #00ff88;
-  font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #00ff88;
+    font-weight: 600;
 }
 
 /* Responsive para tablet y móvil */
 @media (max-width: 900px) {
-  .botones-disciplinas button {
-    flex: 1 1 calc(50% - 1rem);
-  }
+    .botones-disciplinas button {
+        flex: 1 1 calc(50% - 1rem);
+    }
 
-  .lista-partidos table {
-    font-size: 0.8rem;
-  }
+    .lista-partidos table {
+        font-size: 0.8rem;
+    }
 
-  .lista-partidos thead {
-    display: none;
-  }
+    .lista-partidos thead {
+        display: none;
+    }
 
-  /* Convertir filas en bloques */
-  .lista-partidos tbody tr {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #444;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: #333;
-  }
+    /* Convertir filas en bloques */
+    .lista-partidos tbody tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #444;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: #333;
+    }
 
-  /* Cada celda ocupa 100% ancho y se alinea a la izquierda */
-  .lista-partidos tbody td {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    padding: 0.3rem 0;
-    border: none;
-    text-align: left;
-    white-space: normal; /* para que el texto pueda envolver */
-  }
+    /* Cada celda ocupa 100% ancho y se alinea a la izquierda */
+    .lista-partidos tbody td {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        padding: 0.3rem 0;
+        border: none;
+        text-align: left;
+        white-space: normal; /* para que el texto pueda envolver */
+    }
 
-  /* Opcional: poner el título del campo antes del valor */
-  .lista-partidos tbody td:nth-child(1)::before { content: "Local: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-  .lista-partidos tbody td:nth-child(2)::before { content: "Visitante: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-  .lista-partidos tbody td:nth-child(3)::before { content: "Fase: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-  .lista-partidos tbody td:nth-child(4)::before { content: "Fecha: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-  .lista-partidos tbody td:nth-child(5)::before { content: "Res L: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-  .lista-partidos tbody td:nth-child(6)::before { content: "Res V: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-  .lista-partidos tbody td:nth-child(7)::before { content: "Ganador: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-  .lista-partidos tbody td:nth-child(8)::before { content: "Acciones: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
+    /* Opcional: poner el título del campo antes del valor */
+    .lista-partidos tbody td:nth-child(1)::before { content: "Local: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
+    .lista-partidos tbody td:nth-child(2)::before { content: "Visitante: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
+    .lista-partidos tbody td:nth-child(3)::before { content: "Fase: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
+    .lista-partidos tbody td:nth-child(4)::before { content: "Fecha: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
+    .lista-partidos tbody td:nth-child(5)::before { content: "Res L: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
+    .lista-partidos tbody td:nth-child(6)::before { content: "Res V: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
+    .lista-partidos tbody td:nth-child(7)::before { content: "Ganador: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
+    .lista-partidos tbody td:nth-child(8)::before { content: "Acciones: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
 
-  /* Ajustar inputs y selects para que ocupen todo el ancho */
-  .lista-partidos input[type="date"],
-  .lista-partidos input[type="number"],
-  .lista-partidos select {
-    flex-grow: 1;
-    max-width: 100%;
-  }
+    /* Ajustar inputs y selects para que ocupen todo el ancho */
+    .lista-partidos input[type="date"],
+    .lista-partidos input[type="number"],
+    .lista-partidos select {
+        flex-grow: 1;
+        max-width: 100%;
+    }
 
-  /* Ajustar botones dentro de la celda acciones para que estén juntos */
-  .lista-partidos td:last-child {
-    display: flex;
-    gap: 0.5rem;
-  }
+    /* Ajustar botones dentro de la celda acciones para que estén juntos */
+    .lista-partidos td:last-child {
+        display: flex;
+        gap: 0.5rem;
+    }
 }
 
 @media (max-width: 600px) {
-  form {
-    padding: 1rem;
-  }
+    form {
+        padding: 1rem;
+    }
 
-  .form-crear-equipo form {
-    padding: 1.5rem;
-  }
+    .form-crear-equipo form {
+        padding: 1.5rem;
+    }
 
-  .botones-disciplinas button {
-    flex: 1 1 100%;
-  }
+    .botones-disciplinas button {
+        flex: 1 1 100%;
+    }
 
-  .lista-partidos th,
-  .lista-partidos td {
-    padding: 0.5rem;
-  }
+    .lista-partidos th,
+    .lista-partidos td {
+        padding: 0.5rem;
+    }
 
-  .imagen-cuadro {
-    width: 100%;
-    max-width: 100%;
-  }
+    .imagen-cuadro {
+        width: 100%;
+        max-width: 100%;
+    }
 }

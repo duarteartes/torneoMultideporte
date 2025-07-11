@@ -3,8 +3,8 @@
   <h2>Panel de Administración</h2>
   <p>Selecciona disciplina:</p>
   <div class="botones-disciplinas">
-    <button 
-      *ngFor="let d of disciplinas" 
+    <button
+      *ngFor="let d of disciplinas"
       (click)="seleccionarDisciplina(d.id)"
       [class.selected]="disciplinaSeleccionada === d.id">
       {{ d.nombre }}
@@ -132,9 +132,9 @@
   <div *ngIf="imagenesCuadro.length > 0" class="imagenes-cuadro">
     <h3>Imágenes del Cuadro Eliminatorio</h3>
     <div class="galeria-imagenes">
-      <img *ngFor="let img of imagenesCuadro" 
-            [src]="'http://localhost:3000' + img.ruta" 
-            [alt]="img.filename" 
+      <img *ngFor="let img of imagenesCuadro"
+            [src]="'http://localhost:3000' + img.ruta"
+            [alt]="img.filename"
             class="imagen-cuadro" />
     </div>
   </div>
