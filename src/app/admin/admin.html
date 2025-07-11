@@ -22,17 +22,21 @@
   <section *ngIf="!equipoEditando" class="form-crear-equipo">
     <h3>Crear Equipo</h3>
     <form [formGroup]="crearEquipoForm" (ngSubmit)="crearEquipo()">
-      <label>
-        Disciplina:
-        <input type="text" [value]="nombreDisciplinaSeleccionada" disabled>
-      </label>
-      <label>
-        Nombre equipo:
-        <input formControlName="nombre" placeholder="Nombre del equipo">
-      </label>
+      <div>
+        <label for="disciplina">Disciplina:</label>
+        <input id="disciplina" type="text" [value]="nombreDisciplinaSeleccionada" disabled />
+      </div>
+      <div>
+        <label for="nombreEquipo">Nombre del equipo:</label>
+        <input id="nombreEquipo" formControlName="nombre" type="text" placeholder="Nombre del equipo" />
+        <div class="error" *ngIf="crearEquipoForm.get('nombre')?.invalid && (crearEquipoForm.get('nombre')?.touched || crearEquipoForm.get('nombre')?.dirty)">
+          El nombre del equipo es obligatorio.
+        </div>
+      </div>
       <button type="submit" [disabled]="crearEquipoForm.invalid">Crear Equipo</button>
     </form>
   </section>
+
 
   <!-- FORM: Editar Equipo -->
   <section *ngIf="equipoEditando" class="form-editar-equipo">
