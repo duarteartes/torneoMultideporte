@@ -51,7 +51,10 @@ export class Inscripciones {
     this.mensajeError = '';
     this.mensajeExito = '';
 
-    if (this.inscripcionForm.invalid) return;
+    if (this.inscripcionForm.invalid) {
+      this.inscripcionForm.markAllAsTouched();
+      return;
+    }
 
     const nombre = this.inscripcionForm.value.nombreEquipo.trim();
     const disciplinaId = this.inscripcionForm.value.disciplinaId;

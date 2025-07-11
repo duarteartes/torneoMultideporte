@@ -13,6 +13,7 @@ const login = async (req, res) => {
         // Buscar el admin por usuario
         const [rows] = await pool.query('SELECT * FROM administradores WHERE usuario = ?', [usuario]);
         if (rows.length === 0) {
+            console.log(`Usuario no encontrado: ${usuario}`);
             return res.status(401).json({ message: 'Credenciales incorrectas' });
         }
 
@@ -21,6 +22,7 @@ const login = async (req, res) => {
         // Comprobar contraseña (asumiendo que está encriptada con bcrypt)
         const passwordMatch = await bcrypt.compare(contrasena, admin.contrasena);
         if (!passwordMatch) {
+            console.log(`Contraseña incorrecta para usuario: ${usuario}`);
             return res.status(401).json({ message: 'Credenciales incorrectas' });
         }
 

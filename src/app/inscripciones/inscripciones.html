@@ -2,6 +2,9 @@
     <div>
         <label for="nombreEquipo">Nombre del equipo:</label>
         <input id="nombreEquipo" formControlName="nombreEquipo" type="text" />
+        <div class="error" *ngIf="inscripcionForm.get('nombreEquipo')?.invalid && (inscripcionForm.get('nombreEquipo')?.touched || inscripcionForm.get('nombreEquipo')?.dirty)">
+            El nombre del equipo es obligatorio.
+        </div>
     </div>
 
     <div>
@@ -10,6 +13,9 @@
             <option value="" disabled selected>Seleccione una disciplina</option>
             <option *ngFor="let d of disciplinas" [value]="d.id">{{ d.nombre }}</option>
         </select>
+        <div class="error" *ngIf="inscripcionForm.get('disciplinaId')?.invalid && (inscripcionForm.get('disciplinaId')?.touched || inscripcionForm.get('disciplinaId')?.dirty)">
+            Debes seleccionar una disciplina.
+        </div>
     </div>
 
     <button type="submit" [disabled]="botonDeshabilitado">Inscribirse</button>

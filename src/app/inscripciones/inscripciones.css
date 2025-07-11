@@ -1,0 +1,90 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #1a1a1a; /* Fondo oscuro igual que el home */
+    color: #e0e0e0; /* Texto claro */
+}
+
+form {
+    width: 90%;
+    max-width: 600px;
+    background-color: #222222; /* Fondo ligeramente más claro para el formulario */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #b0b0b0; /* Gris claro */
+    font-weight: 600;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #333333; /* Gris oscuro */
+    color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+input[type="text"]::placeholder,
+select option[disabled] {
+    color: #999999; /* Gris medio para placeholder y opción disabled */
+}
+
+button[type="submit"] {
+    background-color: #333333; /* Igual que botones del home */
+    color: #e0e0e0;
+    font-size: 1.25rem;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #4a4a4a;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+button[type="submit"]:disabled {
+    background-color: #555555;
+    cursor: not-allowed;
+}
+
+p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+p[style*="color: green"] {
+    color: #00ff88; /* Verde neón */
+}
+
+p[style*="color: red"] {
+    color: #ff4d4d; /* Rojo vibrante */
+}
+
+.error {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    form {
+        padding: 1.5rem;
+    }
+}

@@ -30,6 +30,8 @@ export class Admin implements OnInit {
   crearEquipoForm!: FormGroup;
   editarEquipoForm!: FormGroup;
   crearPartidoForm!: FormGroup;
+  mostrarTablaPartidos = false;
+
 
   equipoEditando: any | null = null;
   imagenesCuadro: any[] = [];

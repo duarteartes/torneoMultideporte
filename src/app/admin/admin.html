@@ -24,9 +24,7 @@
     <form [formGroup]="crearEquipoForm" (ngSubmit)="crearEquipo()">
       <label>
         Disciplina:
-        <input type="text" 
-               [value]="nombreDisciplinaSeleccionada" 
-               disabled>
+        <input type="text" [value]="nombreDisciplinaSeleccionada" disabled>
       </label>
       <label>
         Nombre equipo:
@@ -61,8 +59,10 @@
     <ul>
       <li *ngFor="let e of equiposFiltrados">
         {{ e.nombre }}
-        <button (click)="editarEquipo(e)" title="Editar equipo">✎</button>
-        <button (click)="eliminarEquipo(e.id)" title="Eliminar equipo">🗑️</button>
+        <div class="acciones">
+          <button (click)="editarEquipo(e)" title="Editar equipo" class="material-icons">edit</button>
+          <button (click)="eliminarEquipo(e.id)" title="Eliminar equipo" class="material-icons">delete</button>
+        </div>
       </li>
     </ul>
   </section>
@@ -124,6 +124,7 @@
     </form>
   </section>
 
+  <!-- Galería Imágenes Cuadro -->
   <div *ngIf="imagenesCuadro.length > 0" class="imagenes-cuadro">
     <h3>Imágenes del Cuadro Eliminatorio</h3>
     <div class="galeria-imagenes">
@@ -134,51 +135,57 @@
     </div>
   </div>
 
+  <!-- BOTÓN DE COLAPSAR/EXPANDIR TABLA PARTIDOS -->
+  <button (click)="mostrarTablaPartidos = !mostrarTablaPartidos" class="toggle-tabla">
+    {{ mostrarTablaPartidos ? 'Ocultar Tabla de Partidos' : 'Mostrar Tabla de Partidos' }}
+  </button>
 
-  <!-- LISTA DE PARTIDOS -->
-  <section class="lista-partidos">
+  <!-- CONTENEDOR CON SCROLL PARA TABLA DE PARTIDOS -->
+  <section class="lista-partidos" *ngIf="mostrarTablaPartidos">
     <h3>Partidos {{ anioActual }}</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Local</th>
-          <th>Visitante</th>
-          <th>Fase</th>
-          <th>Fecha</th>
-          <th>Res L</th>
-          <th>Res V</th>
-          <th>Ganador</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let p of partidos">
-          <td>{{ p.equipo_local_nombre }}</td>
-          <td>{{ p.equipo_visitante_nombre }}</td>
-          <td>{{ p.fase }}</td>
-          <td>
-            <input [(ngModel)]="p.fecha" name="fecha{{p.id}}" type="date">
-          </td>
-          <td>
-            <input [(ngModel)]="p.resultado_local" name="resLocal{{p.id}}" type="number" min="0">
-          </td>
-          <td>
-            <input [(ngModel)]="p.resultado_visitante" name="resVisitante{{p.id}}" type="number" min="0">
-          </td>
-          <td>
-            <select [(ngModel)]="p.ganador_id" name="ganador{{p.id}}">
-              <option [ngValue]="null">-</option>
-              <option [ngValue]="p.equipo_local_id">{{ p.equipo_local_nombre }}</option>
-              <option [ngValue]="p.equipo_visitante_id">{{ p.equipo_visitante_nombre }}</option>
-            </select>
-          </td>
-          <td>
-            <button (click)="guardarResultado(p)">Guardar</button>
-            <button (click)="borrarPartido(p.id)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="tabla-scroll-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Local</th>
+            <th>Visitante</th>
+            <th>Fase</th>
+            <th>Fecha</th>
+            <th>Res L</th>
+            <th>Res V</th>
+            <th>Ganador</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of partidos">
+            <td>{{ p.equipo_local_nombre }}</td>
+            <td>{{ p.equipo_visitante_nombre }}</td>
+            <td>{{ p.fase }}</td>
+            <td>
+              <input [(ngModel)]="p.fecha" name="fecha{{p.id}}" type="date">
+            </td>
+            <td>
+              <input [(ngModel)]="p.resultado_local" name="resLocal{{p.id}}" type="number" min="0">
+            </td>
+            <td>
+              <input [(ngModel)]="p.resultado_visitante" name="resVisitante{{p.id}}" type="number" min="0">
+            </td>
+            <td>
+              <select [(ngModel)]="p.ganador_id" name="ganador{{p.id}}">
+                <option [ngValue]="null">-</option>
+                <option [ngValue]="p.equipo_local_id">{{ p.equipo_local_nombre }}</option>
+                <option [ngValue]="p.equipo_visitante_id">{{ p.equipo_visitante_nombre }}</option>
+              </select>
+            </td>
+            <td>
+              <button (click)="guardarResultado(p)">Guardar</button>
+              <button (click)="borrarPartido(p.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
 </div>
