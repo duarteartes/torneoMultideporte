@@ -179,5 +179,6 @@ INSERT INTO partidos (torneo_id, disciplina_id, equipo_local_id, equipo_visitant
 (2, 6, 48, 46, 'Final', 5, 3, 48, '2024-04-16 21:00:00');
 
 -- INSERT DE ADMINISTRADORES
+-- Usuario: admin -> Conraseña: root
 INSERT INTO administradores (usuario, contrasena) VALUES
-('admin', 'root');
+('admin', '$2b$10$q3EgK.9IPG7jC23jitm/a./qZUU.TDOuCIIhYt1mt/AW/GRM2/w5S');

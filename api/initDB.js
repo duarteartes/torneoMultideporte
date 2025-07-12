@@ -1,18 +1,32 @@
+// IMPORTACIÓN DE DEPENDENCIAS Y CONFIGURACIÓN
+/*
+Cliente MySQL con soporte para promesas y carga de variables de entorno
+*/
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
+// FUNCIÓN AUTOEJECUTABLE PARA CREAR BASE DE DATOS Y TABLAS
 (async () => {
     try {
+        /*
+        Se conecta al servidor MySQL usando credenciales de entorno, sin seleccionar BBDD porque la vamos a crear
+        */
         const connection = await mysql.createConnection({
             host: process.env.DB_HOST,
             user: process.env.DB_USER,
             password: process.env.DB_PASSWORD,
             port: process.env.DB_PORT,
+            // Permite ejecutar varias sentencias SQL en una sola consulta
             multipleStatements: true
         });
 
         console.log('Conexión establecida ✔️');
 
+        // SENTENCIAS SQL PARA CREAR LA BBDD Y LAS TABLAS
+        /*
+        Se crea la BBDD si no existe, luego se selecciona para trabajar con ella. Después se crean tablas
+        relacionadas, todas con sus claves primarias, relaciones y restricciones
+        */
         const createDbAndTables = `
             CREATE DATABASE IF NOT EXISTS torneoMultideporte CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
             USE torneoMultideporte;
@@ -95,9 +109,13 @@ require('dotenv').config();
             );
         `;
 
+        /*
+        Se ejecuta la cadena con las sentencias SQL para crear la BBDD y las tablas
+        */
         await connection.query(createDbAndTables);
 
         console.log('Base de datos y tablas creadas correctamente 🎉');
+        // CIERRE DE LA CONEXIÓN
         await connection.end();
     } catch (err) {
         console.error('Error al crear la BBDD:', err);

@@ -1,16 +1,19 @@
+// IMPORTACIÓN DE LA CONEXIÓN A LA BBDD
 const pool = require('../db');
 
+// MODELO EQUIPOS
 const Equipos = {
+    /* Obtener todos los equipos registrados */
     getAll: async () => {
         const [rows] = await pool.query('SELECT * FROM equipos');
         return rows;
     },
-
+    /* Obtener un equipo por su ID */
     getById: async (id) => {
         const [rows] = await pool.query('SELECT * FROM equipos WHERE id = ?', [id]);
         return rows[0];
     },
-
+    /* Crear un nuevo equipo */
     create: async (data) => {
         const { nombre, disciplina_id, torneo_id } = data;
         const [rows] = await pool.query(
@@ -28,7 +31,7 @@ const Equipos = {
         );
         return result.insertId;
     },
-
+    /* Actualizar los datos de un equipo por ID */
     update: async (id, data) => {
         const { nombre, disciplina_id, torneo_id } = data;
         await pool.query(
@@ -36,7 +39,7 @@ const Equipos = {
             [nombre, disciplina_id, torneo_id, id]
         );
     },
-
+    /* Eliminar un equipo por ID */
     delete: async (id) => {
         await pool.query('DELETE FROM equipos WHERE id = ?', [id]);
     },
