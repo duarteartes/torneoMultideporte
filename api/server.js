@@ -14,6 +14,11 @@ app.use(
     express.static(path.join(__dirname, 'uploads', 'cuadroEliminatorias'))
 );
 
+app.use(
+    '/ganadores',
+    express.static(path.join(__dirname, 'uploads', 'ganadores'))
+);
+
 const authRoutes = require('./ROUTES/auth.routes');
 const torneosRoutes = require('./routes/torneos.routes');
 const disciplinasRoutes = require('./routes/disciplinas.routes');

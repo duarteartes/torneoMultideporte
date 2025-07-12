@@ -80,6 +80,19 @@ require('dotenv').config();
                 FOREIGN KEY (torneo_id) REFERENCES torneos(id)
                     ON UPDATE CASCADE ON DELETE CASCADE
             );
+
+            CREATE TABLE IF NOT EXISTS ganadores_imagenes (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                filename VARCHAR(255) NOT NULL,
+                ruta VARCHAR(255) NOT NULL,
+                disciplina_id INT NOT NULL,
+                torneo_id INT NOT NULL,
+                fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (disciplina_id) REFERENCES disciplinas(id)
+                    ON UPDATE CASCADE ON DELETE CASCADE,
+                FOREIGN KEY (torneo_id) REFERENCES torneos(id)
+                    ON UPDATE CASCADE ON DELETE CASCADE
+            );
         `;
 
         await connection.query(createDbAndTables);

@@ -33,6 +33,8 @@ export class Admin implements OnInit {
   mostrarTablaPartidos = false;
   equipoEditando: any | null = null;
   imagenesCuadro: any[] = [];
+  selectedFileGanador: File | null = null;
+  imagenesGanadores: any[] = [];
 
   private get token(): string {
     return localStorage.getItem('token') || '';
@@ -106,6 +108,7 @@ export class Admin implements OnInit {
     this.filterEquipos();
     this.loadPartidos();
     this.loadImagenesCuadro();
+    this.loadImagenesGanadores();
   }
 
   private filterEquipos() {
@@ -285,5 +288,39 @@ export class Admin implements OnInit {
           this.showMessage(err.error?.error || 'Error subiendo imagen');
         },
       });
+  }
+
+  onFileSelectedGanador(event: any) {
+    this.selectedFileGanador = event.target.files[0];
+  }
+
+  cargarImagenGanador() {
+    if (!this.selectedFileGanador || this.disciplinaSeleccionada == null) return;
+    const formData = new FormData();
+    formData.append('imagen', this.selectedFileGanador);
+    formData.append('torneo_id', '1');
+    this.partidosService.uploadImagenGanador(this.disciplinaSeleccionada, formData).subscribe({
+      next: () => {
+        this.showMessage('Imagen de ganador subida.');
+        this.selectedFileGanador = null;
+        this.loadImagenesGanadores();
+      },
+      error: () => this.showMessage('Error subiendo imagen de ganador')
+    });
+  }
+
+  loadImagenesGanadores() {
+    if (this.disciplinaSeleccionada == null) {
+      this.imagenesGanadores = [];
+      return;
+    }
+    const torneoId = 1;
+    this.partidosService.getImagenesGanadores(torneoId, this.disciplinaSeleccionada).subscribe({
+      next: imgs => this.imagenesGanadores = imgs,
+      error: () => {
+        this.showMessage('Error cargando imágenes de ganadores');
+        this.imagenesGanadores = [];
+      }
+    });
   }
 }

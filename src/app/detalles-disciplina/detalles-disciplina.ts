@@ -25,6 +25,7 @@ export class DetallesDisciplina implements OnInit, OnChanges {
   ultimaImagenUrl: string | null = null;
   torneoId = 1;
   ganador: any = null;
+  ultimaImagenGanadorUrl: string | null = null;
 
   constructor(private disciplinaService: DisciplinasService, private partidosService: PartidosService) {}
 
@@ -35,6 +36,7 @@ export class DetallesDisciplina implements OnInit, OnChanges {
       this.loadPartidos(this.disciplinaId);
       this.loadUltimaImagen(this.torneoId, this.disciplinaId);
       this.loadGanador(this.disciplinaId);
+      this.loadUltimaImagenGanador(this.torneoId, this.disciplinaId);
     }
   }
 
@@ -46,6 +48,7 @@ export class DetallesDisciplina implements OnInit, OnChanges {
       this.loadPartidos(id);
       this.loadUltimaImagen(this.torneoId, id);
       this.loadGanador(id);
+      this.loadUltimaImagenGanador(this.torneoId, id);
     }
   }
 
@@ -100,6 +103,19 @@ export class DetallesDisciplina implements OnInit, OnChanges {
       }
     });
   }
+
+  loadUltimaImagenGanador(torneoId: number, disciplinaId: number) {
+    this.partidosService.getUltimaImagenGanador(torneoId, disciplinaId).subscribe({
+      next: (data) => {
+        this.ultimaImagenGanadorUrl = data?.ruta ? `http://localhost:3000${data.ruta}` : null;
+      },
+      error: (err) => {
+        console.warn('No se encontró última imagen del ganador', err);
+        this.ultimaImagenGanadorUrl = null;
+      }
+    });
+  }
+
 
   getPartidosPorEquipo(equipoId: number) {
     return this.partidos

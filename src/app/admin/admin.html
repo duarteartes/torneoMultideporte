@@ -132,14 +132,39 @@
 
   <div *ngIf="imagenesCuadro.length > 0" class="imagenes-cuadro">
     <h3>Imágenes del Cuadro Eliminatorio</h3>
-
     <div class="galeria-imagenes">
       <img *ngFor="let img of imagenesCuadro"
-            [src]="'http://localhost:3000' + img.ruta"
-            [alt]="img.filename"
-            class="imagen-cuadro" />
+        [src]="'http://localhost:3000' + img.ruta"
+        [alt]="img.filename"
+        class="imagen-cuadro"
+      />
     </div>
+  </div>
 
+  <section class="form-cargar-fase-eliminatoria">
+    <h3>Cargar Imagen de Ganadores</h3>
+    <form (ngSubmit)="cargarImagenGanador()">
+
+      <label>
+        Selecciona imagen:
+        <input type="file" name="imagenGanador" (change)="onFileSelectedGanador($event)" accept="image/*" required/>
+      </label>
+      <button type="submit" [disabled]="!selectedFileGanador">
+        Subir Imagen Ganador
+      </button>
+
+    </form>
+  </section>
+
+  <div *ngIf="imagenesGanadores.length > 0" class="imagenes-cuadro">
+    <h3>Imágenes de Ganadores</h3>
+    <div class="galeria-imagenes">
+      <img *ngFor="let img of imagenesGanadores"
+        [src]="'http://localhost:3000' + img.ruta"
+        [alt]="img.filename"
+        class="imagen-cuadro"
+      />
+    </div>
   </div>
 
   <button (click)="mostrarTablaPartidos = !mostrarTablaPartidos" class="toggle-tabla">

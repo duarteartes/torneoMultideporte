@@ -64,4 +64,16 @@ export class PartidosService {
   getUltimaImagenCuadro(torneoId: number, disciplinaId: number) {
     return this.http.get<any>(`http://localhost:3000/api/uploads/ultima/${torneoId}/${disciplinaId}`);
   }
+
+  uploadImagenGanador(disciplinaId: number, formData: FormData) {
+    return this.http.post(`http://localhost:3000/api/uploads/uploadGanador/${disciplinaId}`, formData);
+  }
+
+  getImagenesGanadores(torneoId: number, disciplinaId: number) {
+    return this.http.get<any[]>(`http://localhost:3000/api/uploads/ganadores/${torneoId}/${disciplinaId}`);
+  }
+
+  getUltimaImagenGanador(torneoId: number, disciplinaId: number) {
+    return this.http.get<any>(`http://localhost:3000/api/uploads/ganadores/ultima/${torneoId}/${disciplinaId}`);
+  }
 }

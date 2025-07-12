@@ -59,30 +59,18 @@
                 {{ ganador.equipo_ganador_nombre }}
             </div>
 
-            <ul *ngIf="ganador.partidos && ganador.partidos.length" class="partidos-list">
-                <li *ngFor="let partido of ganador.partidos" class="partido-item">
-                    <div class="partido-linea1">
-                        <span class="fecha">{{ partido.fecha | date:'dd/MM/yyyy HH:mm' }}</span>
-                        <span class="equipos">
-                            {{ partido.equipo_local_nombre }} <span class="vs">vs</span> {{ partido.equipo_visitante_nombre }}
-                        </span>
-                    </div>
-                    <div class="partido-linea2">
-                        <span *ngIf="partido.resultado_local !== null && partido.resultado_visitante !== null">
-                            {{ partido.resultado_local }} – {{ partido.resultado_visitante }}
-                        </span>
-                        <span *ngIf="partido.resultado_local === null || partido.resultado_visitante === null">
-                            (no jugado aún)
-                        </span>
-                    </div>
-                </li>
-            </ul>
-
             <div class="equipo-footer">
                 <button class="secondary">
                     ¡Felicidades!
                 </button>
             </div>
+
+            <div *ngIf="ultimaImagenGanadorUrl; else sinImagenGanador">
+                <img [src]="ultimaImagenGanadorUrl" alt="Imagen del equipo ganador">
+            </div>
+            <ng-template #sinImagenGanador>
+                <p>No hay imagen subida aún</p>
+            </ng-template>
 
         </li>
     </ul>
