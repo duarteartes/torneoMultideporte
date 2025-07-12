@@ -1,4 +1,3 @@
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -15,12 +14,11 @@ html, body {
     padding-top: 50px;
 }
 
-/* Base común a todos los botones */
 button,
 .btn {
     font-weight: 500;
-    font-size: 1.25rem;       /* tamaño base para botones primarios */
-    padding: 0.75rem 2rem;    /* padding base para botones primarios */
+    font-size: 1.25rem;
+    padding: 0.75rem 2rem;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
@@ -30,12 +28,11 @@ button,
     line-height: 1.4;
 }
 
-/* Botón primario */
 button.primary,
 .btn-primary {
     background-color: #1976d2;
     color: #fafafa;
-    border: none;  /* sin borde */
+    border: none;
 }
 
 button.primary:hover,
@@ -43,23 +40,21 @@ button.primary:hover,
     background-color: #1565c0;
 }
 
-/* Botón secundario - tamaño más pequeño y colores coherentes con primarios */
 button.secondary,
 .btn-secondary {
     background-color: transparent !important;
-    color: #fafafa;               /* azul cercano al hover primario */
-    border: 2px solid #fafafa;   /* borde a juego */
-    font-size: 1rem;              /* más pequeño que primario */
-    padding: 0.5rem 1.25rem;     /* padding más pequeño */
+    color: #fafafa;
+    border: 2px solid #fafafa;
+    font-size: 1rem;
+    padding: 0.5rem 1.25rem;
 }
 
 button.secondary:hover,
 .btn-secondary:hover {
     border-color: #1976d2;
-    color: #fafafa;              /* texto claro */
+    color: #fafafa;
 }
 
-/* Estado deshabilitado */
 button:disabled,
 .btn:disabled {
     opacity: 0.5;
@@ -70,7 +65,6 @@ button:disabled,
     box-shadow: none !important;
 }
 
-/* Estado seleccionado */
 button.selected,
 .btn.selected {
     background-color: #0d47a1 !important;
@@ -78,7 +72,6 @@ button.selected,
     border: none !important;
 }
 
-/* Estado seleccionado igual que hover */
 button.secondary.selected,
 .btn-secondary.selected {
     border-color: #1976d2 !important;

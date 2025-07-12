@@ -10,20 +10,20 @@ import { PartidosService } from '../services/partidos';
   templateUrl: './detalles-disciplina.html',
   styleUrl: './detalles-disciplina.css'
 })
+
 export class DetallesDisciplina implements OnInit, OnChanges {
+
   @Input() disciplinaId!: number;
 
   disciplina: any = null;
   equipos: any[] = [];
   partidos: any[] = [];
-
   mostrarEquipos = false;
   mostrarEliminatoria = false;
   faseEliminatoriaUrl: string | null = null;
   equiposConPartidosAbiertos: boolean[] = [];
-
   ultimaImagenUrl: string | null = null;
-  torneoId = 1; // o el ID del torneo activo que tengas, definirlo según contexto
+  torneoId = 1;
   ganador: any = null;
 
   constructor(private disciplinaService: DisciplinasService, private partidosService: PartidosService) {}
@@ -35,7 +35,6 @@ export class DetallesDisciplina implements OnInit, OnChanges {
       this.loadPartidos(this.disciplinaId);
       this.loadUltimaImagen(this.torneoId, this.disciplinaId);
       this.loadGanador(this.disciplinaId);
-
     }
   }
 
@@ -58,21 +57,14 @@ export class DetallesDisciplina implements OnInit, OnChanges {
 
   loadEquipos(id: number) {
     this.disciplinaService.getEquiposPorDisciplina(id).subscribe(data => {
-      // Filtramos equipos para que solo estén los que tienen partidos en el año actual
       const anioActual = new Date().getFullYear();
-
-      // Cargamos los partidos para la disciplina y año actual (ya haces loadPartidos)
       this.partidosService.getByDisciplinaYAnio(id, anioActual).subscribe(partidos => {
         this.partidos = partidos;
-
-        // Crear un Set con ids de equipos que aparecen en partidos del año actual
         const equiposConPartidos = new Set<number>();
         partidos.forEach(p => {
           equiposConPartidos.add(p.equipo_local_id);
           equiposConPartidos.add(p.equipo_visitante_id);
         });
-
-        // Filtrar equipos para mostrar solo los que están en ese Set
         this.equipos = data.filter(equipo => equiposConPartidos.has(equipo.id));
         this.equiposConPartidosAbiertos = new Array(this.equipos.length).fill(false);
       });
@@ -127,7 +119,6 @@ export class DetallesDisciplina implements OnInit, OnChanges {
   toggleEliminatoria() {
     this.mostrarEliminatoria = !this.mostrarEliminatoria;
     this.mostrarEquipos = false;
-
     if (this.mostrarEliminatoria) {
       this.loadUltimaImagen(this.torneoId, this.disciplinaId);
     } else {

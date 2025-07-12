@@ -11,6 +11,7 @@ import { Auth } from '../services/auth';
 })
 
 export class Header {
+
   menuOpen = false;
   showDropdown = false;
 

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
 
 export class PartidosService {
+
   private apiUrl = 'http://localhost:3000/api/partidos';
   private uploadUrl = 'http://localhost:3000/api/uploads';
 
@@ -44,12 +44,12 @@ export class PartidosService {
   }
 
   subirFaseEliminatoria(
-    disciplinaId: number,  // antes disciplinaNombre: number
+    disciplinaId: number,
     formData: FormData,
     token: string
   ): Observable<{ filename: string }> {
     return this.http.post<{ filename: string }>(
-      `${this.uploadUrl}/upload/${disciplinaId}`,  // ahora el id en la URL
+      `${this.uploadUrl}/upload/${disciplinaId}`,
       formData,
       {
         headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),

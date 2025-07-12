@@ -1,4 +1,5 @@
 <form [formGroup]="inscripcionForm" (ngSubmit)="onSubmit()">
+
     <div>
         <label for="nombreEquipo">Nombre del equipo:</label>
         <input id="nombreEquipo" formControlName="nombreEquipo" type="text" />
@@ -21,4 +22,5 @@
     <button type="submit" [disabled]="botonDeshabilitado">Inscribirse</button>
     <p *ngIf="mensajeExito" style="color: green;">{{ mensajeExito }}</p>
     <p *ngIf="mensajeError" style="color: red;">{{ mensajeError }}</p>
+
 </form>

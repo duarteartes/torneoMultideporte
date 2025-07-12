@@ -14,7 +14,6 @@ app.use(
     express.static(path.join(__dirname, 'uploads', 'cuadroEliminatorias'))
 );
 
-// Importar rutas
 const authRoutes = require('./ROUTES/auth.routes');
 const torneosRoutes = require('./routes/torneos.routes');
 const disciplinasRoutes = require('./routes/disciplinas.routes');
@@ -23,7 +22,6 @@ const partidosRoutes = require('./routes/partidos.routes');
 const administradoresRoutes = require('./ROUTES/administradores.routes');
 const uploadsRoutes = require('./ROUTES/uploads.routes');
 
-// Usar rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/torneos', torneosRoutes);
 app.use('/api/disciplinas', disciplinasRoutes);

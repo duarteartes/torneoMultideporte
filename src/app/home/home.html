@@ -1,11 +1,8 @@
 <div class="anios">
   <h2>Años disponibles</h2>
+
   <div class="botones-anios">
-    <button
-      *ngFor="let anio of anios"
-      [class.selected]="anio === anioSeleccionado"
-      (click)="seleccionarAnio(anio)"
-    >
+    <button *ngFor="let anio of anios" [class.selected]="anio === anioSeleccionado" (click)="seleccionarAnio(anio)">
       {{ anio }}
     </button>
   </div>
@@ -13,12 +10,9 @@
 
 <div class="disciplinas" *ngIf="disciplinas.length > 0">
   <h2>Disciplinas del {{ anioSeleccionado }}</h2>
+
   <div class="botones-disciplinas">
-    <button
-      *ngFor="let d of disciplinas"
-      [class.selected]="d.id === disciplinaSeleccionada"
-      (click)="seleccionarDisciplina(d.id)"
-    >
+    <button *ngFor="let d of disciplinas" [class.selected]="d.id === disciplinaSeleccionada" (click)="seleccionarDisciplina(d.id)">
       {{ d.nombre }}
     </button>
   </div>
@@ -27,6 +21,7 @@
 <div class="partidos" *ngIf="partidosPorFase.length > 0">
   <div *ngFor="let grupo of partidosPorFase" class="fase-bloque">
     <h3>{{ grupo.fase }}</h3>
+
     <div class="cards-fase">
       <div *ngFor="let p of grupo.partidos" class="partido-card">
         <div class="fecha">{{ p.fecha | date: 'dd MMM yyyy, HH:mm' }}</div>
@@ -37,5 +32,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>

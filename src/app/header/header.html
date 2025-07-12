@@ -1,27 +1,27 @@
 <nav class="header">
     <div class="header-content">
-        <!-- Botón hamburguesa -->
+
         <div class="menu-toggle" (click)="toggleMenu()">
             <span></span>
             <span></span>
             <span></span>
         </div>
 
-        <!-- Parte izquierda -->
         <ul class="nav-left" [class.active]="menuOpen">
             <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
             <li><a routerLink="/disciplinas" (click)="closeMenu()">Disciplinas</a></li>
             <li><a routerLink="/inscripciones" (click)="closeMenu()">Inscripciones</a></li>
         </ul>
 
-        <!-- Parte derecha: icono usuario -->
         <div class="nav-right">
             <li class="user-menu" *ngIf="auth.isLoggedIn(); else loginLink">
                 <span class="material-icons" (click)="toggleDropdown()">person</span>
+
                 <ul class="dropdown" *ngIf="showDropdown">
                     <li><a routerLink="/admin" (click)="toggleDropdown(); closeMenu()">Ir a Admin</a></li>
                     <li><a href="#" (click)="logout(); closeMenu()">Cerrar sesión</a></li>
                 </ul>
+
             </li>
             <ng-template #loginLink>
                 <a routerLink="/login" (click)="closeMenu()">
@@ -30,4 +30,5 @@
             </ng-template>
         </div>
     </div>
+
 </nav>

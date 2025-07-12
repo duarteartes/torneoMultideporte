@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DetallesDisciplina } from '../detalles-disciplina/detalles-disciplina';
-import { Torneo } from '../services/torneo';  // o DisciplinasService si prefieres
+import { Torneo } from '../services/torneo';
 
 @Component({
   selector: 'app-disciplinas',
-  standalone: true,                 // Si usas standalone (como en DetallesDisciplina)
+  standalone: true,
   imports: [CommonModule, DetallesDisciplina],
   templateUrl: './disciplinas.html',
-  styleUrls: ['./disciplinas.css']  // corregido styleUrls en plural
+  styleUrls: ['./disciplinas.css']
 })
+
 export class Disciplinas implements OnInit {
+
   disciplinas: any[] = [];
   disciplinaSeleccionada: any;
 
@@ -21,7 +23,6 @@ export class Disciplinas implements OnInit {
   }
 
   cargarDisciplinas() {
-    // Aquí puedes usar getDisciplinas o getDisciplinasPorAnio, según tu API y lo que necesites
     this.torneoService.getDisciplinas().subscribe({
       next: (data) => this.disciplinas = data,
       error: (err) => console.error('Error cargando disciplinas:', err)

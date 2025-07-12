@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { Header } from './header/header';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, Header, HttpClientModule], // Sin HttpClientModule
+  imports: [RouterOutlet, CommonModule, Header, HttpClientModule],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
+
 export class App {
-  protected title = 'torneoMultideporte';
+  protected title = 'torneo Multideporte';
 }

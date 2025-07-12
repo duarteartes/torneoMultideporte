@@ -6,11 +6,9 @@
     background-color: #1a1a1a;
     color: #e0e0e0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Evitar scroll horizontal general */
     overflow-x: hidden;
 }
 
-/* Contenedores generales centrados y 90% de ancho */
 .disciplinas,
 .form-crear-equipo,
 .form-editar-equipo,
@@ -27,7 +25,6 @@
     align-items: center;
 }
 
-/* Títulos */
 h2, h3 {
     color: #b0b0b0;
     text-align: center;
@@ -35,7 +32,6 @@ h2, h3 {
     font-weight: 700;
 }
 
-/* Botones disciplinas */
 .botones-disciplinas {
     display: flex;
     flex-wrap: wrap;
@@ -68,7 +64,6 @@ h2, h3 {
     background-color: #666666;
 }
 
-/* Formularios */
 form {
     background-color: #222222;
     padding: 1.5rem 1.5rem;
@@ -93,7 +88,6 @@ form {
     gap: 1.5rem;
 }
 
-/* Título */
 .form-crear-equipo h3 {
     color: #b0b0b0;
     text-align: center;
@@ -101,12 +95,10 @@ form {
     font-weight: 700;
 }
 
-/* Bloque de campo */
 .form-crear-equipo div {
     width: 100%;
 }
 
-/* Etiquetas */
 label {
     display: flex;
     flex-direction: column;
@@ -123,7 +115,6 @@ label {
     font-weight: 600;
 }
 
-/* Inputs y selects */
 input[type="text"],
 input[type="date"],
 input[type="number"],
@@ -201,7 +192,6 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Centrar botón mostrar/ocultar tabla */
 .toggle-tabla {
     display: block;
     margin: 0 auto 1.5rem auto;
@@ -221,14 +211,12 @@ button:disabled {
     background-color: #4a4a4a;
 }
 
-/* Error */
 .error {
     color: #ff4d4d;
     font-size: 0.9rem;
     margin-top: 0.3rem;
 }
 
-/* Lista equipos */
 .lista-equipos ul {
     list-style: none;
     padding: 0;
@@ -264,7 +252,6 @@ button:disabled {
     color: #f0f0f0;
 }
 
-/* Galería imágenes */
 .galeria-imagenes {
     display: flex;
     flex-wrap: wrap;
@@ -280,20 +267,19 @@ button:disabled {
     box-shadow: 0 2px 8px rgba(0,0,0,0.7);
 }
 
-/* Tabla partidos */
 .lista-partidos {
     width: 100%;
     max-width: 1300px;
-    overflow-x: auto; /* Scroll horizontal solo para esta sección */
-    -webkit-overflow-scrolling: touch; /* Suavizado en iOS */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     border-radius: 8px;
     background-color: #222222;
-    padding: 0.5rem 0; /* Separación arriba y abajo */
+    padding: 0.5rem 0;
 }
 
 .lista-partidos table {
-    width: max-content; /* Para que la tabla se expanda y active scroll */
-    min-width: 100%; /* Que ocupe al menos el 100% del contenedor */
+    width: max-content;
+    min-width: 100%;
     border-collapse: collapse;
     color: #e0e0e0;
     font-size: 0.9rem;
@@ -304,7 +290,7 @@ button:disabled {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #444444;
     text-align: center;
-    white-space: nowrap; /* Evita que se partan palabras */
+    white-space: nowrap;
 }
 
 .lista-partidos th {
@@ -325,7 +311,6 @@ button:disabled {
     padding: 0.4rem 0.6rem;
 }
 
-/* Botón colapsar tabla */
 .btn-colapsar-tabla {
     align-self: flex-end;
     margin-bottom: 0.5rem;
@@ -343,7 +328,6 @@ button:disabled {
     background-color: #4a4a4a;
 }
 
-/* Mensaje centrado */
 .mensaje {
     text-align: center;
     margin-bottom: 1rem;
@@ -351,21 +335,16 @@ button:disabled {
     font-weight: 600;
 }
 
-/* Responsive para tablet y móvil */
 @media (max-width: 900px) {
     .botones-disciplinas button {
         flex: 1 1 calc(50% - 1rem);
     }
-
     .lista-partidos table {
         font-size: 0.8rem;
     }
-
     .lista-partidos thead {
         display: none;
     }
-
-    /* Convertir filas en bloques */
     .lista-partidos tbody tr {
         display: flex;
         flex-direction: column;
@@ -375,8 +354,6 @@ button:disabled {
         border-radius: 8px;
         background-color: #333;
     }
-
-    /* Cada celda ocupa 100% ancho y se alinea a la izquierda */
     .lista-partidos tbody td {
         display: flex;
         justify-content: flex-start;
@@ -384,28 +361,70 @@ button:disabled {
         padding: 0.3rem 0;
         border: none;
         text-align: left;
-        white-space: normal; /* para que el texto pueda envolver */
+        white-space: normal;
     }
-
-    /* Opcional: poner el título del campo antes del valor */
-    .lista-partidos tbody td:nth-child(1)::before { content: "Local: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-    .lista-partidos tbody td:nth-child(2)::before { content: "Visitante: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-    .lista-partidos tbody td:nth-child(3)::before { content: "Fase: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-    .lista-partidos tbody td:nth-child(4)::before { content: "Fecha: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-    .lista-partidos tbody td:nth-child(5)::before { content: "Res L: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-    .lista-partidos tbody td:nth-child(6)::before { content: "Res V: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-    .lista-partidos tbody td:nth-child(7)::before { content: "Ganador: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-    .lista-partidos tbody td:nth-child(8)::before { content: "Acciones: "; font-weight: 700; color: #ccc; width: 120px; display: inline-block; }
-
-    /* Ajustar inputs y selects para que ocupen todo el ancho */
+    .lista-partidos tbody td:nth-child(1)::before {
+        content: "Local: ";
+        font-weight: 700;
+        color: #ccc;
+        width: 120px;
+        display: inline-block;
+    }
+    .lista-partidos tbody td:nth-child(2)::before {
+        content: "Visitante: ";
+        font-weight: 700;
+        color: #ccc;
+        width: 120px;
+        display: inline-block;
+    }
+    .lista-partidos tbody td:nth-child(3)::before {
+        content: "Fase: ";
+        font-weight: 700;
+        color: #ccc;
+        width: 120px;
+        display: inline-block;
+    }
+    .lista-partidos tbody td:nth-child(4)::before {
+        content: "Fecha: ";
+        font-weight: 700;
+        color: #ccc;
+        width: 120px;
+        display: inline-block;
+    }
+    .lista-partidos tbody td:nth-child(5)::before {
+        content: "Res L: ";
+        font-weight: 700;
+        color: #ccc;
+        width: 120px;
+        display: inline-block;
+    }
+    .lista-partidos tbody td:nth-child(6)::before {
+        content: "Res V: ";
+        font-weight: 700;
+        color: #ccc;
+        width: 120px;
+        display: inline-block;
+    }
+    .lista-partidos tbody td:nth-child(7)::before {
+        content: "Ganador: ";
+        font-weight: 700;
+        color: #ccc;
+        width: 120px;
+        display: inline-block;
+    }
+    .lista-partidos tbody td:nth-child(8)::before {
+        content: "Acciones: ";
+        font-weight: 700;
+        color: #ccc;
+        width: 120px;
+        display: inline-block;
+    }
     .lista-partidos input[type="date"],
     .lista-partidos input[type="number"],
     .lista-partidos select {
         flex-grow: 1;
         max-width: 100%;
     }
-
-    /* Ajustar botones dentro de la celda acciones para que estén juntos */
     .lista-partidos td:last-child {
         display: flex;
         gap: 0.5rem;
@@ -416,20 +435,16 @@ button:disabled {
     form {
         padding: 1rem;
     }
-
     .form-crear-equipo form {
         padding: 1.5rem;
     }
-
     .botones-disciplinas button {
         flex: 1 1 100%;
     }
-
     .lista-partidos th,
     .lista-partidos td {
         padding: 0.5rem;
     }
-
     .imagen-cuadro {
         width: 100%;
         max-width: 100%;

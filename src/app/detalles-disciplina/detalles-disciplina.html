@@ -5,6 +5,7 @@
 
 <div *ngIf="mostrarEquipos && equipos?.length">
     <h3>Equipos</h3>
+
     <ul class="equipos-list">
         <li *ngFor="let equipo of equipos; let i = index" class="equipo-card">
             <div class="equipo-header">
@@ -24,21 +25,18 @@
                             {{ partido.resultado_local }} – {{ partido.resultado_visitante }}
                         </span>
                         <span *ngIf="partido.resultado_local === null || partido.resultado_visitante === null">
-                            (no jugado aún)
+                            No jugado aún
                         </span>
                     </div>
                 </li>
             </ul>
 
             <div class="equipo-footer">
-                <button
-                    class="primary"
-                    [class.selected]="equiposConPartidosAbiertos[i]"
-                    (click)="togglePartidos(i)"
-                >
+                <button class="primary" [class.selected]="equiposConPartidosAbiertos[i]" (click)="togglePartidos(i)">
                     {{ equiposConPartidosAbiertos[i] ? 'OCULTAR DETALLES' : 'VER DETALLES' }}
                 </button>
             </div>
+
         </li>
     </ul>
 </div>
@@ -49,7 +47,7 @@
         <img [src]="ultimaImagenUrl" alt="Última imagen del cuadro eliminatorio">
     </ng-container>
     <ng-template #sinImagen>
-        <p>No hay imagen subida aún para esta eliminatoria.</p>
+        <p>No hay imagen subida aún para esta eliminatoria</p>
     </ng-template>
 </div>
 
@@ -85,6 +83,7 @@
                     ¡Felicidades!
                 </button>
             </div>
+
         </li>
     </ul>
 </div>

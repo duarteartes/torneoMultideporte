@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Auth } from '../services/auth';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, CommonModule],
@@ -13,8 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 
 export class Login implements OnInit {
-  loginForm: any;
 
+  loginForm: any;
   error: string | null = null;
 
   constructor(private fb: FormBuilder, private auth: Auth, private router: Router) {}

@@ -24,10 +24,8 @@ const Disciplinas = {
     },
 
     getEquiposPorDisciplina: async (id) => {
-        // Verificas que la disciplina existe
         const [disciplina] = await pool.query('SELECT * FROM disciplinas WHERE id = ?', [id]);
         if (disciplina.length === 0) return [];
-        // Devuelves los equipos
         const [equipos] = await pool.query('SELECT * FROM equipos WHERE disciplina_id = ?', [id]);
         return equipos;
     },
@@ -41,7 +39,6 @@ const Disciplinas = {
         );
         return rows;
     },
-
 
     create: async (data) => {
         const { nombre } = data;

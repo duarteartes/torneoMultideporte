@@ -4,21 +4,20 @@
     left: 0;
     width: 100%;
     background: #1a1a1a;
-    z-index: 10000; /* para que esté encima de todo */
-    border-bottom: 1px solid #666666; /* línea gris clara */
+    z-index: 10000;
+    border-bottom: 1px solid #666666;
 }
 
 .header-content {
-    width: 90vw;           /* ancho contenido 90% ventana */
-    max-width: 1500px;     /* límite máximo */
-    margin: 0 auto;        /* centrar horizontal */
+    width: 90vw;
+    max-width: 1500px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;       /* vertical solo para no aumentar mucho */
+    padding: 1rem 0;
 }
 
-/* Parte izquierda */
 .nav-left {
     display: flex;
     list-style: none;
@@ -26,23 +25,22 @@
 }
 
 .nav-left li a {
-    color: #e0e0e0; /* texto gris claro en lugar de blanco puro */
+    color: #e0e0e0;
     text-decoration: none;
     font-weight: 400;
     transition: color 0.2s;
 }
 
 .nav-left li a:hover {
-    color: #0d47a1; /* gris más claro al hacer hover */
+    color: #0d47a1;
 }
 
-/* Parte derecha */
 .nav-right {
     position: relative;
 }
 
 .nav-right .material-icons {
-    color: #e0e0e0; /* gris claro en iconos */
+    color: #e0e0e0;
     cursor: pointer;
     font-size: 28px;
 }
@@ -80,7 +78,6 @@
     background: #444;
 }
 
-/* Botón hamburguesa */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -95,12 +92,10 @@
     transition: 0.3s;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .menu-toggle {
         display: flex;
     }
-
     .nav-left {
         display: none;
         flex-direction: column;
@@ -111,15 +106,12 @@
         width: 100%;
         z-index: 1000;
     }
-
     .nav-left.active {
         display: flex;
     }
-
     .nav-left li {
         padding: 0.5rem 1rem;
     }
-
     .nav-right {
         position: absolute;
         top: 1rem;

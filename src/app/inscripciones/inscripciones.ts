@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class Inscripciones {
+
   inscripcionForm!: FormGroup;
   disciplinas: any[] = [];
   mensajeExito: string = '';
@@ -30,9 +31,8 @@ export class Inscripciones {
       nombreEquipo: ['', Validators.required],
       disciplinaId: [null, Validators.required]
     });
-
     this.loadDisciplinas();
-    this.loadEquipos(); // 👈 carga todos los equipos al iniciar
+    this.loadEquipos();
   }
 
   loadEquipos(): void {
@@ -50,29 +50,24 @@ export class Inscripciones {
   onSubmit() {
     this.mensajeError = '';
     this.mensajeExito = '';
-
     if (this.inscripcionForm.invalid) {
       this.inscripcionForm.markAllAsTouched();
       return;
     }
-
     const nombre = this.inscripcionForm.value.nombreEquipo.trim();
     const disciplinaId = this.inscripcionForm.value.disciplinaId;
-
     const datos = {
       nombre,
       disciplina_id: disciplinaId,
       torneo_id: 1
     };
-
     this.botonDeshabilitado = true;
-
     this.equiposService.createEquipo(datos).subscribe({
       next: res => {
         this.mensajeExito = '¡Equipo creado correctamente!';
         this.inscripcionForm.reset();
         this.botonDeshabilitado = false;
-        this.loadEquipos(); // Actualiza la lista
+        this.loadEquipos();
         setTimeout(() => this.mensajeExito = '', 5000);
       },
       error: err => {
@@ -85,6 +80,4 @@ export class Inscripciones {
       }
     });
   }
-
-
 }

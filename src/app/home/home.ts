@@ -9,7 +9,9 @@ import { NgFor, NgIf, CommonModule } from '@angular/common';
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
+
 export class Home implements OnInit {
+
   disciplinas: any[] = [];
   partidosPorFase: any[] = [];
   anios: number[] = [];
@@ -26,7 +28,6 @@ export class Home implements OnInit {
     this.torneo.getAnios().subscribe(data => {
       this.anios = data;
       this.anioSeleccionado = new Date().getFullYear();
-
       this.loadDisciplinasPorAnio(this.anioSeleccionado);
     });
   }
@@ -51,7 +52,6 @@ export class Home implements OnInit {
   loadPartidos() {
     if (this.disciplinaSeleccionada && this.anioSeleccionado) {
       this.torneo.getPartidosPorDisciplinaYAnio(this.disciplinaSeleccionada, this.anioSeleccionado).subscribe(data => {
-
         const ordenFases = [
           'Dieciseisavos',
           'Octavos',
@@ -59,8 +59,6 @@ export class Home implements OnInit {
           'Semifinales',
           'Final'
         ];
-
-        // Ordenar primero por fase y fecha
         const partidosOrdenados = data.sort((a: any, b: any) => {
           const faseA = ordenFases.indexOf(a.fase);
           const faseB = ordenFases.indexOf(b.fase);
@@ -68,13 +66,10 @@ export class Home implements OnInit {
           if (faseA > faseB) return 1;
           return new Date(a.fecha).getTime() - new Date(b.fecha).getTime();
         });
-
-        // Agrupar por fase
         this.partidosPorFase = ordenFases.map(fase => ({
           fase: fase,
           partidos: partidosOrdenados.filter((p: any) => p.fase === fase)
         })).filter(grupo => grupo.partidos.length > 0);
-
       });
     }
   }

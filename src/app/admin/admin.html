@@ -1,7 +1,7 @@
-<!-- Selección de disciplina -->
 <div class="disciplinas">
   <h2>Panel de Administración</h2>
   <p>Selecciona disciplina:</p>
+
   <div class="botones-disciplinas">
     <button
       *ngFor="let d of disciplinas"
@@ -10,22 +10,22 @@
       {{ d.nombre }}
     </button>
   </div>
+
 </div>
 
-<!-- Mensaje de estado -->
 <p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
 
-<!-- Contenido solo si hay disciplina seleccionada -->
 <div *ngIf="disciplinaSeleccionada">
 
-  <!-- FORM: Crear Equipo -->
   <section *ngIf="!equipoEditando" class="form-crear-equipo">
     <h3>Crear Equipo</h3>
     <form [formGroup]="crearEquipoForm" (ngSubmit)="crearEquipo()">
+
       <div>
         <label for="disciplina">Disciplina:</label>
         <input id="disciplina" type="text" [value]="nombreDisciplinaSeleccionada" disabled />
       </div>
+
       <div>
         <label for="nombreEquipo">Nombre del equipo:</label>
         <input id="nombreEquipo" formControlName="nombre" type="text" placeholder="Nombre del equipo" />
@@ -33,34 +33,36 @@
           El nombre del equipo es obligatorio.
         </div>
       </div>
+
       <button type="submit" [disabled]="crearEquipoForm.invalid">Crear Equipo</button>
     </form>
   </section>
 
-
-  <!-- FORM: Editar Equipo -->
   <section *ngIf="equipoEditando" class="form-editar-equipo">
     <h3>Editar Equipo</h3>
     <form [formGroup]="editarEquipoForm" (ngSubmit)="guardarEdicionEquipo()">
+
       <label>
         Disciplina:
         <select formControlName="disciplinaId">
           <option *ngFor="let d of disciplinas" [value]="d.id">{{ d.nombre }}</option>
         </select>
       </label>
+
       <label>
         Nombre equipo:
         <input formControlName="nombre" placeholder="Nombre del equipo">
       </label>
+
       <button type="submit" [disabled]="editarEquipoForm.invalid">Guardar</button>
       <button type="button" (click)="cancelarEdicionEquipo()">Cancelar</button>
     </form>
   </section>
 
-  <!-- LISTA DE EQUIPOS -->
   <section class="lista-equipos">
     <h3>Equipos inscritos</h3>
     <ul>
+
       <li *ngFor="let e of equiposFiltrados">
         {{ e.nombre }}
         <div class="acciones">
@@ -68,13 +70,14 @@
           <button (click)="eliminarEquipo(e.id)" title="Eliminar equipo" class="material-icons">delete</button>
         </div>
       </li>
+
     </ul>
   </section>
 
-  <!-- FORM: Crear Partido -->
   <section class="form-crear-partido">
     <h3>Crear Partido</h3>
     <form [formGroup]="crearPartidoForm" (ngSubmit)="crearPartido()">
+
       <label>
         Local:
         <select formControlName="equipoLocalId">
@@ -82,6 +85,7 @@
           <option *ngFor="let e of equiposFiltrados" [ngValue]="e.id">{{ e.nombre }}</option>
         </select>
       </label>
+
       <label>
         Visitante:
         <select formControlName="equipoVisitanteId">
@@ -89,6 +93,7 @@
           <option *ngFor="let e of equiposFiltrados" [ngValue]="e.id">{{ e.nombre }}</option>
         </select>
       </label>
+
       <label>
         Fase:
         <select formControlName="fase">
@@ -100,55 +105,52 @@
           <option value="Final">Final</option>
         </select>
       </label>
+
       <label>
         Fecha:
         <input type="date" formControlName="fecha">
       </label>
+
       <button type="submit" [disabled]="crearPartidoForm.invalid">Crear Partido</button>
     </form>
   </section>
 
-  <!-- FORM: Cargar Fase Eliminatoria -->
   <section class="form-cargar-fase-eliminatoria">
     <h3>Cargar Fase Eliminatoria</h3>
     <form (ngSubmit)="cargarFaseEliminatoria()">
+
       <label>
         Selecciona imagen:
-        <input
-          type="file"
-          name="imagen"
-          (change)="onFileSelected($event)"
-          accept="image/*"
-          required
-        />
+        <input type="file" name="imagen" (change)="onFileSelected($event)" accept="image/*" required/>
       </label>
       <button type="submit" [disabled]="!selectedFile">
         Subir Imagen
       </button>
+
     </form>
   </section>
 
-  <!-- Galería Imágenes Cuadro -->
   <div *ngIf="imagenesCuadro.length > 0" class="imagenes-cuadro">
     <h3>Imágenes del Cuadro Eliminatorio</h3>
+
     <div class="galeria-imagenes">
       <img *ngFor="let img of imagenesCuadro"
             [src]="'http://localhost:3000' + img.ruta"
             [alt]="img.filename"
             class="imagen-cuadro" />
     </div>
+
   </div>
 
-  <!-- BOTÓN DE COLAPSAR/EXPANDIR TABLA PARTIDOS -->
   <button (click)="mostrarTablaPartidos = !mostrarTablaPartidos" class="toggle-tabla">
     {{ mostrarTablaPartidos ? 'Ocultar Tabla de Partidos' : 'Mostrar Tabla de Partidos' }}
   </button>
 
-  <!-- CONTENEDOR CON SCROLL PARA TABLA DE PARTIDOS -->
   <section class="lista-partidos" *ngIf="mostrarTablaPartidos">
     <h3>Partidos {{ anioActual }}</h3>
     <div class="tabla-scroll-container">
       <table>
+
         <thead>
           <tr>
             <th>Local</th>
@@ -161,6 +163,7 @@
             <th>Acciones</th>
           </tr>
         </thead>
+
         <tbody>
           <tr *ngFor="let p of partidos">
             <td>{{ p.equipo_local_nombre }}</td>
@@ -188,6 +191,7 @@
             </td>
           </tr>
         </tbody>
+
       </table>
     </div>
   </section>

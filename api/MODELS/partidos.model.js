@@ -26,7 +26,6 @@ const Partidos = {
     },
 
     getGanadorPorDisciplinaYAnio: async (disciplinaId, anio) => {
-        // Aquí asumimos que la fase final se llama 'Final' (ajustar si se llama diferente)
         const [rows] = await pool.query(
             `SELECT p.ganador_id, e.nombre AS equipo_ganador_nombre
                 FROM partidos p
@@ -37,7 +36,6 @@ const Partidos = {
         );
         return rows.length > 0 ? rows[0] : null;
     },
-
 
     create: async (data) => {
         const {
@@ -78,27 +76,19 @@ const Partidos = {
             ganador_id,
             fecha,
         } = data;
-
-        // Verifica año
         const [rows] = await pool.query(
             `SELECT YEAR(fecha) as anio FROM partidos WHERE id = ?`,
             [id]
         );
-
         if (rows.length === 0) {
             throw new Error('Partido no encontrado');
         }
-
         const partidoAnio = rows[0].anio;
         const anioActual = new Date().getFullYear();
-
         if (partidoAnio !== anioActual) {
             throw new Error(`Solo se pueden modificar partidos del año en curso (${anioActual})`);
         }
-
-        // ✅ Formatea la fecha
         const fechaFormateada = formatFecha(fecha);
-
         await pool.query(
             `UPDATE partidos
                 SET resultado_local = ?, resultado_visitante = ?, ganador_id = ?, fecha = ?
@@ -108,26 +98,20 @@ const Partidos = {
     },
 
     delete: async (id) => {
-        // Verifica año
         const [rows] = await pool.query(
             `SELECT YEAR(fecha) as anio FROM partidos WHERE id = ?`,
             [id]
         );
-
         if (rows.length === 0) {
             throw new Error('Partido no encontrado');
         }
-
         const partidoAnio = rows[0].anio;
         const anioActual = new Date().getFullYear();
-
         if (partidoAnio !== anioActual) {
             throw new Error(`Solo se pueden eliminar partidos del año en curso (${anioActual})`);
         }
-
         await pool.query('DELETE FROM partidos WHERE id = ?', [id]);
     }
-
 };
 
 const formatFecha = (isoString) => {

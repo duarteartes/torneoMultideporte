@@ -4,7 +4,7 @@ const PartidosController = {
     getAll: async (req, res) => {
         try {
             const partidos = await Partidos.getAll();
-            res.json(partidos);  // Devuelve sin formatear
+            res.json(partidos);
         } catch (error) {
             res.status(500).json({ message: 'Error al obtener partidos', error: error.message });
         }
@@ -14,7 +14,6 @@ const PartidosController = {
         try {
             const { disciplinaId, anio } = req.params;
             const partidos = await Partidos.getByDisciplinaYAnio(disciplinaId, anio);
-            // Enviar partidos sin modificar la fecha
             res.json(partidos);
         } catch (error) {
             res.status(500).json({ message: 'Error al obtener partidos por disciplina y año', error: error.message });
@@ -59,7 +58,7 @@ const PartidosController = {
             await Partidos.update(req.params.id, req.body);
             res.json({ message: 'Partido actualizado' });
         } catch (error) {
-            console.error('Error al actualizar partido:', error);  // <--- LOG COMPLETO
+            console.error('Error al actualizar partido:', error);
             if (error.status) {
                 return res.status(error.status).json({ message: error.message });
             }

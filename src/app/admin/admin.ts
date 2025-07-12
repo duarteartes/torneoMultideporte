@@ -16,23 +16,21 @@ import { PartidosService } from '../services/partidos';
   templateUrl: './admin.html',
   styleUrls: ['./admin.css']
 })
+
 export class Admin implements OnInit {
+
   disciplinas: any[] = [];
   equipos: any[] = [];
   equiposFiltrados: any[] = [];
   partidos: any[] = [];
   anioActual = new Date().getFullYear();
-
   disciplinaSeleccionada: number | null = null;
   mensaje = '';
   selectedFile: File | null = null;
-
   crearEquipoForm!: FormGroup;
   editarEquipoForm!: FormGroup;
   crearPartidoForm!: FormGroup;
   mostrarTablaPartidos = false;
-
-
   equipoEditando: any | null = null;
   imagenesCuadro: any[] = [];
 
@@ -50,16 +48,13 @@ export class Admin implements OnInit {
   ngOnInit(): void {
     this.loadDisciplinas();
     this.loadEquipos();
-
     this.crearEquipoForm = this.fb.group({
       nombre: ['', Validators.required]
     });
-
     this.editarEquipoForm = this.fb.group({
       nombre: ['', Validators.required],
       disciplinaId: ['', Validators.required]
     });
-
     this.crearPartidoForm = this.fb.group({
       equipoLocalId: [null, Validators.required],
       equipoVisitanteId: [null, Validators.required],
@@ -84,7 +79,7 @@ export class Admin implements OnInit {
       this.imagenesCuadro = [];
       return;
     }
-    const torneoId = 1; // si el torneo es siempre 1, si no adapta
+    const torneoId = 1;
     this.partidosService.getImagenesCuadro(torneoId, this.disciplinaSeleccionada).subscribe({
       next: (imgs) => {
         this.imagenesCuadro = imgs;
@@ -134,13 +129,11 @@ export class Admin implements OnInit {
 
   crearEquipo() {
     if (this.crearEquipoForm.invalid || this.disciplinaSeleccionada == null) return;
-
     const datos = {
       nombre: this.crearEquipoForm.value.nombre.trim(),
       disciplina_id: this.disciplinaSeleccionada,
       torneo_id: 1
     };
-
     this.equiposService.createEquipo(datos).subscribe({
       next: () => {
         this.showMessage('Equipo creado.');
@@ -161,22 +154,19 @@ export class Admin implements OnInit {
 
   guardarEdicionEquipo() {
     if (!this.equipoEditando || this.editarEquipoForm.invalid) return;
-
     const datos = {
       nombre: this.editarEquipoForm.value.nombre.trim(),
       disciplina_id: this.editarEquipoForm.value.disciplinaId,
       torneo_id: this.equipoEditando.torneo_id
     };
-
     this.equiposService.updateEquipo(this.equipoEditando.id, datos, this.token).subscribe({
       next: () => {
         this.showMessage('Equipo actualizado.');
         this.equipoEditando = null;
         this.editarEquipoForm.reset();
         this.loadEquipos();
-        this.loadPartidos(); // ✅ Refresca los partidos también
+        this.loadPartidos();
       },
-
       error: err => this.showMessage(err.error?.message || 'Error actualizando equipo')
     });
   }
@@ -188,7 +178,6 @@ export class Admin implements OnInit {
 
   eliminarEquipo(id: number) {
     if (!confirm('¿Seguro que quieres eliminar este equipo?')) return;
-
     this.equiposService.deleteEquipo(id, this.token).subscribe({
       next: () => {
         this.showMessage('Equipo eliminado.');
@@ -200,14 +189,11 @@ export class Admin implements OnInit {
 
   crearPartido() {
     if (this.crearPartidoForm.invalid || this.disciplinaSeleccionada == null) return;
-
     const f = this.crearPartidoForm.value;
-
     if (f.equipoLocalId === f.equipoVisitanteId) {
       this.showMessage('El equipo local y visitante deben ser diferentes.');
       return;
     }
-
     const datos = {
       torneo_id: 1,
       disciplina_id: this.disciplinaSeleccionada,
@@ -219,7 +205,6 @@ export class Admin implements OnInit {
       ganador_id: null,
       fecha: f.fecha
     };
-
     this.partidosService.create(datos, this.token).subscribe({
       next: () => {
         this.showMessage('Partido creado.');
@@ -235,14 +220,12 @@ export class Admin implements OnInit {
       this.showMessage('El equipo local y visitante no pueden ser iguales.');
       return;
     }
-
     const datos = {
       resultado_local: p.resultado_local,
       resultado_visitante: p.resultado_visitante,
       ganador_id: p.ganador_id,
       fecha: p.fecha
     };
-
     this.partidosService.update(p.id, datos, this.token).subscribe({
       next: () => this.showMessage('Resultado actualizado.'),
       error: err => this.showMessage(err.error?.message || 'Error guardando resultado')
@@ -251,7 +234,6 @@ export class Admin implements OnInit {
 
   borrarPartido(id: number) {
     if (!confirm('¿Seguro que quieres eliminar este partido?')) return;
-
     this.partidosService.delete(id, this.token).subscribe({
       next: () => {
         this.showMessage('Partido eliminado.');
@@ -283,11 +265,9 @@ export class Admin implements OnInit {
       this.showMessage('Debe seleccionar disciplina e imagen.');
       return;
     }
-
     const formData = new FormData();
     formData.append('imagen', this.selectedFile);
     formData.append('torneo_id', '1');
-
     this.partidosService
       .subirFaseEliminatoria(
         this.disciplinaSeleccionada,
@@ -306,5 +286,4 @@ export class Admin implements OnInit {
         },
       });
   }
-
 }

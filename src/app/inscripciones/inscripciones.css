@@ -3,14 +3,14 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    background-color: #1a1a1a; /* Fondo oscuro igual que el home */
-    color: #e0e0e0; /* Texto claro */
+    background-color: #1a1a1a;
+    color: #e0e0e0;
 }
 
 form {
     width: 90%;
     max-width: 600px;
-    background-color: #222222; /* Fondo ligeramente más claro para el formulario */
+    background-color: #222222;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
@@ -22,7 +22,7 @@ form {
 label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #b0b0b0; /* Gris claro */
+    color: #b0b0b0;
     font-weight: 600;
 }
 
@@ -30,7 +30,7 @@ input[type="text"],
 select {
     width: 100%;
     padding: 0.75rem 1rem;
-    background-color: #333333; /* Gris oscuro */
+    background-color: #333333;
     color: #e0e0e0;
     border: none;
     border-radius: 4px;
@@ -39,11 +39,11 @@ select {
 
 input[type="text"]::placeholder,
 select option[disabled] {
-    color: #999999; /* Gris medio para placeholder y opción disabled */
+    color: #999999;
 }
 
 button[type="submit"] {
-    background-color: #333333; /* Igual que botones del home */
+    background-color: #333333;
     color: #e0e0e0;
     font-size: 1.25rem;
     padding: 0.75rem 2rem;
@@ -69,11 +69,11 @@ p {
 }
 
 p[style*="color: green"] {
-    color: #00ff88; /* Verde neón */
+    color: #00ff88;
 }
 
 p[style*="color: red"] {
-    color: #ff4d4d; /* Rojo vibrante */
+    color: #ff4d4d;
 }
 
 .error {
@@ -82,7 +82,6 @@ p[style*="color: red"] {
     margin-top: 0.3rem;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
     form {
         padding: 1.5rem;

@@ -8,7 +8,6 @@
     width: 100%;
 }
 
-/* Contenedor de botones de toggle */
 .botones-toggle {
     display: flex;
     flex-direction: column;
@@ -21,14 +20,12 @@
     width: auto;
 }
 
-/* Título de sección */
 h3 {
     margin: 1.5rem 0 1rem;
     color: #b0b0b0;
     text-align: center;
 }
 
-/* Lista de tarjetas de equipos */
 ul.equipos-list {
     list-style: none;
     padding: 0;
@@ -65,11 +62,10 @@ li.equipo-card:hover {
     font-weight: 600;
     color: #e0e0e0;
     margin-bottom: 0.75rem;
-    margin-top: 0.5rem;  /* nuevo: espacio superior */
-    padding-left: 0.75rem; /* nuevo: espacio izquierdo */
+    margin-top: 0.5rem;
+    padding-left: 0.75rem;
 }
 
-/* Lista de partidos dentro de la card */
 ul.partidos-list {
     list-style: none;
     padding: 0;
@@ -79,7 +75,6 @@ ul.partidos-list {
     gap: 0.5rem;
 }
 
-/* Partido individual */
 li.partido-item {
     background: #1a1a1a;
     color: #e0e0e0;
@@ -120,13 +115,11 @@ li.partido-item {
     color: #cccccc;
 }
 
-/* Footer de la card de equipo */
 .equipo-footer {
     display: flex;
     justify-content: flex-end;
 }
 
-/* Botón VER DETALLES / OCULTAR DETALLES */
 .equipo-footer button.primary {
     font-size: 0.85rem;
     padding: 0.25rem 0.75rem;
@@ -144,19 +137,15 @@ li.partido-item {
     background-color: #666;
 }
 
-/* Cuando está seleccionado (OCULTAR DETALLES) */
 .equipo-footer button.primary.selected {
-    background-color: #007bff; /* azul */
+    background-color: #007bff;
     color: #fff;
 }
 
-/* Hover del botón seleccionado */
 .equipo-footer button.primary.selected:hover {
-    background-color: #0056b3; /* azul más oscuro */
+    background-color: #0056b3;
 }
 
-
-/* Imagen eliminatoria */
 img {
     max-width: 100%;
     height: auto;
@@ -165,13 +154,11 @@ img {
     margin: 1rem 0;
 }
 
-/* ==== CARD GANADOR ==== */
-
 li.equipo-card.ganador {
-    border: 2px solid #c9aa5f; /* dorado suave */
-    background: #1c1c1c; /* mismo tono base */
-    box-shadow: none; /* sin sombras pesadas */
-    color: #f0e6c0; /* texto ligeramente dorado */
+    border: 2px solid #c9aa5f;
+    background: #1c1c1c;
+    box-shadow: none;
+    color: #f0e6c0;
 }
 
 li.equipo-card.ganador .equipo-header {
@@ -213,7 +200,6 @@ li.equipo-card.ganador .equipo-footer button:hover {
     background: rgba(201, 170, 95, 0.1);
 }
 
-/* Responsive tablet */
 @media (max-width: 900px) {
     ul.equipos-list {
         max-width: 100%;
@@ -223,24 +209,19 @@ li.equipo-card.ganador .equipo-footer button:hover {
     }
 }
 
-/* Responsive móvil */
 @media (max-width: 480px) {
     :host {
         padding: 0.75rem;
     }
-
     li.partido-item {
         font-size: 0.85rem;
     }
-
     button.secondary {
         width: 100%;
     }
-
     :host > .botones-toggle button.secondary {
         width: 70%;
     }
-
     .botones-toggle {
         flex-direction: column;
         gap: 0.5rem;

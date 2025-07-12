@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 
 export class DisciplinasService {
-  private apiUrl = 'http://localhost:3000/api'; // Ajusta tu URL base
+
+  private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) {}
 
