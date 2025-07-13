@@ -1,6 +1,9 @@
+//IMPORTAMOS EL MODELO
 const Partidos = require('../MODELS/partidos.model');
 
+//CONTROLADOR DE PARTIDOS
 const PartidosController = {
+    /* Obtiene todos los partidos */
     getAll: async (req, res) => {
         try {
             const partidos = await Partidos.getAll();
@@ -9,7 +12,7 @@ const PartidosController = {
             res.status(500).json({ message: 'Error al obtener partidos', error: error.message });
         }
     },
-
+    /* Obtiene todos los partidos filtrados por disciplina y año */
     getByDisciplinaYAnio: async (req, res) => {
         try {
             const { disciplinaId, anio } = req.params;
@@ -19,7 +22,7 @@ const PartidosController = {
             res.status(500).json({ message: 'Error al obtener partidos por disciplina y año', error: error.message });
         }
     },
-
+    /* Obtiene un partido específico por su ID */
     getById: async (req, res) => {
         try {
             const partido = await Partidos.getById(req.params.id);
@@ -29,7 +32,7 @@ const PartidosController = {
             res.status(500).json({ message: 'Error al obtener partido', error: error.message });
         }
     },
-
+    /* Obtiene el ganador de una disciplina en un año específico */
     getGanadorPorDisciplinaYAnio: async (req, res) => {
         try {
             const { disciplinaId, anio } = req.params;
@@ -42,8 +45,7 @@ const PartidosController = {
             res.status(500).json({ message: 'Error al obtener ganador', error: error.message });
         }
     },
-
-
+    /* Crea un nuevo partido */
     create: async (req, res) => {
         try {
             const id = await Partidos.create(req.body);
@@ -52,7 +54,7 @@ const PartidosController = {
             res.status(500).json({ message: 'Error al crear partido', error: error.message });
         }
     },
-
+    /* Actualiza un partido existente identificado por su ID */
     update: async (req, res) => {
         try {
             await Partidos.update(req.params.id, req.body);
@@ -65,7 +67,7 @@ const PartidosController = {
             res.status(500).json({ message: 'Error al actualizar partido', error: error.message });
         }
     },
-
+    /* Elimina un partido específico por su ID */
     delete: async (req, res) => {
         try {
             await Partidos.delete(req.params.id);

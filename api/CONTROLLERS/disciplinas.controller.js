@@ -1,6 +1,9 @@
+//IMPORTAMOS EL MODELO
 const Disciplinas = require('../MODELS/disciplinas.model');
 
+//CONTROLADOR DE DISCIPLINAS
 const DisciplinasController = {
+    /* Obtiene todas las disciplinas */
     getAll: async (req, res) => {
         try {
             const disciplinas = await Disciplinas.getAll();
@@ -9,7 +12,7 @@ const DisciplinasController = {
             res.status(500).json({ message: 'Error al obtener disciplinas', error: error.message });
         }
     },
-
+    /* Obtiene una disciplina específica por su ID */
     getById: async (req, res) => {
         try {
             const disciplina = await Disciplinas.getById(req.params.id);
@@ -19,7 +22,7 @@ const DisciplinasController = {
             res.status(500).json({ message: 'Error al obtener disciplina', error: error.message });
         }
     },
-
+    /* Obtiene disciplinas filtradas por año */
     getByAnio: async (req, res) => {
         try {
             const { anio } = req.params;
@@ -29,7 +32,7 @@ const DisciplinasController = {
             res.status(500).json({ message: 'Error al obtener disciplinas por año', error: error.message });
         }
     },
-
+    /* Obtiene todos los equipos relacionados con una disciplina específica */
     getEquiposPorDisciplina: async (req, res) => {
         try {
             const equipos = await Disciplinas.getEquiposPorDisciplina(req.params.id);
@@ -38,7 +41,7 @@ const DisciplinasController = {
             res.status(500).json({ message: 'Error al obtener equipos', error: error.message });
         }
     },
-
+    /* Obtiene todos los partidos relacionados con una disciplina específica */
     getPartidosPorDisciplina: async (req, res) => {
         try {
             const partidos = await Disciplinas.getPartidosPorDisciplina(req.params.id);
@@ -47,8 +50,7 @@ const DisciplinasController = {
             res.status(500).json({ message: 'Error al obtener partidos', error: error.message });
         }
     },
-
-
+    /* Crea una nueva disciplina */
     create: async (req, res) => {
         try {
             const id = await Disciplinas.create(req.body);
@@ -57,7 +59,7 @@ const DisciplinasController = {
             res.status(500).json({ message: 'Error al crear disciplina', error: error.message });
         }
     },
-
+    /* Actualiza una disciplina existente identificada por ID */
     update: async (req, res) => {
         try {
             await Disciplinas.update(req.params.id, req.body);
@@ -66,7 +68,7 @@ const DisciplinasController = {
             res.status(500).json({ message: 'Error al actualizar disciplina', error: error.message });
         }
     },
-
+    /* Elimina una disciplina específica por su ID */
     delete: async (req, res) => {
         try {
             await Disciplinas.delete(req.params.id);

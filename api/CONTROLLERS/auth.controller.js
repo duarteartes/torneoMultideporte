@@ -1,7 +1,18 @@
+// IMPORTACIONES DE DEPENDENCIAS Y CONFIGURACIÓN
+/*
+Importamos el pool de conexiones con la configuración de conexión a la BBDD. Importamos la librería JWT para
+firmar y verificar tokens. Importamos bcrypt para comparar contraseñas encriptadas
+*/
 const pool = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+// CONTROLADOR DE LOGIN
+/*
+Verificamos las credenciales de un administrador: recibe el usuario y contraseña, comprueba que existan en la
+BBDD, y que la contraseña se correcta usando bcrypt; si todo es válido, genera y devuelve un token JWT para
+autenticar sesiones futuras
+*/
 const login = async (req, res) => {
     const { usuario, contrasena } = req.body;
 

@@ -1,3 +1,8 @@
+// IMPORTACIÓN DE MÓDULOS NECESARIOS
+/*
+Express para rutas, Multer para gestión de archivos, PATH y FS para manipulación de directorios,
+MySQL para BBDD, y dotenv para variables de entorno
+*/
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -7,6 +12,11 @@ require('dotenv').config();
 
 const router = express.Router();
 
+// CONFIGURACIÓN DE ALMACENAMIENTO PARA SUBIR IMÁGENES EN CUADRO ELIMINATORIO
+/*
+Se verifica el parámetro ID y se consulta el nombre en la BBDD, se crea la carpeta correspondiente si no existe,
+y se genera un nombre de archivo único para evitar colisiones
+*/
 const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
         const disciplinaId = parseInt(req.params.disciplinaId, 10);
@@ -44,6 +54,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// RUTA POST PARA SUBIR UNA IMAGEN DEL CUADRO ELIMINATORIO
+/*
+Recibe los parámetros y valida la existencia de datos, guarda el archivo y registra la información en la BBDD
+*/
 router.post('/upload/:disciplinaId', upload.single('imagen'), async (req, res) => {
     const disciplinaId = parseInt(req.params.disciplinaId, 10);
     const torneoId = req.body.torneo_id;
@@ -88,6 +102,10 @@ router.post('/upload/:disciplinaId', upload.single('imagen'), async (req, res) =
     }
 });
 
+// RUTA GET PARA OBTENER TODAS LAS IMÁGENES POR TORNEO Y DISCIPLINA DE CUADRO ELIMINATORIO
+/*
+Valida los parámetros numéricos y consulta y devuelve las imágenes relacionadas en la BBDD
+*/
 router.get('/:torneoId/:disciplinaId', async (req, res) => {
     const torneoId = parseInt(req.params.torneoId, 10);
     const disciplinaId = parseInt(req.params.disciplinaId, 10);
@@ -125,6 +143,10 @@ router.get('/:torneoId/:disciplinaId', async (req, res) => {
     }
 });
 
+// RUTA GET PARA OBTENER LA ÚLTIMA IMAGEN SUBIDA DE CUADRO ELIMINATORIO
+/*
+Devuelve solo la imagen más reciente
+*/
 router.get('/ultima/:torneoId/:disciplinaId', async (req, res) => {
     const torneoId = parseInt(req.params.torneoId, 10);
     const disciplinaId = parseInt(req.params.disciplinaId, 10);
@@ -167,6 +189,11 @@ router.get('/ultima/:torneoId/:disciplinaId', async (req, res) => {
     }
 });
 
+// CONFIGURACIÓN DE ALMACENAMIENTO PARA SUBIR IMÁGENES EN GANADORES
+/*
+Se verifica el parámetro ID y se consulta el nombre en la BBDD, se crea la carpeta correspondiente si no existe,
+y se genera un nombre de archivo único para evitar colisiones
+*/
 const storageGanadores = multer.diskStorage({
     destination: async (req, file, cb) => {
         const disciplinaId = parseInt(req.params.disciplinaId, 10);
@@ -204,6 +231,7 @@ const storageGanadores = multer.diskStorage({
 
 const uploadGanadores = multer({ storage: storageGanadores });
 
+// RUTA POST PARA SUBIR UNA IMAGEN DE GANADORES
 router.post('/uploadGanador/:disciplinaId', uploadGanadores.single('imagen'), async (req, res) => {
     const disciplinaId = parseInt(req.params.disciplinaId, 10);
     const torneoId = req.body.torneo_id;
@@ -248,6 +276,7 @@ router.post('/uploadGanador/:disciplinaId', uploadGanadores.single('imagen'), as
     }
 });
 
+// RUTA GET PARA OBTENER TODAS LAS IMÁGENES POR TORNEO Y DISCIPLINA DE GANADORES
 router.get('/ganadores/:torneoId/:disciplinaId', async (req, res) => {
     const torneoId = parseInt(req.params.torneoId, 10);
     const disciplinaId = parseInt(req.params.disciplinaId, 10);
@@ -278,6 +307,7 @@ router.get('/ganadores/:torneoId/:disciplinaId', async (req, res) => {
     }
 });
 
+// RUTA GET PARA OBTENER LA ÚLTIMA IMAGEN SUBIDA DE GANADORES
 router.get('/ganadores/ultima/:torneoId/:disciplinaId', async (req, res) => {
     const torneoId = parseInt(req.params.torneoId, 10);
     const disciplinaId = parseInt(req.params.disciplinaId, 10);

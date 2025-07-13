@@ -1,6 +1,9 @@
+//IMPORTAMOS EL MODELO
 const Equipos = require('../models/equipos.model');
 
+//CONTROLADOR DE EQUIPOS
 const EquiposController = {
+    /* Obtiene todos los equipos */
     getAll: async (req, res) => {
         try {
             const equipos = await Equipos.getAll();
@@ -9,7 +12,7 @@ const EquiposController = {
             res.status(500).json({ message: 'Error al obtener equipos', error: error.message });
         }
     },
-
+    /* Obtiene un equipo específico por su ID */
     getById: async (req, res) => {
         try {
             const equipo = await Equipos.getById(req.params.id);
@@ -19,7 +22,7 @@ const EquiposController = {
             res.status(500).json({ message: 'Error al obtener equipo', error: error.message });
         }
     },
-
+    /* Crea un nuevo equipo */
     create: async (req, res) => {
         try {
             const id = await Equipos.create(req.body);
@@ -31,7 +34,7 @@ const EquiposController = {
             res.status(500).json({ message: 'Error al crear equipo', error: error.message });
         }
     },
-
+    /* Actualiza un equipo existente identificado por su ID */
     update: async (req, res) => {
         try {
             await Equipos.update(req.params.id, req.body);
@@ -40,7 +43,7 @@ const EquiposController = {
             res.status(500).json({ message: 'Error al actualizar equipo', error: error.message });
         }
     },
-
+    /* Elimina un equipo específico por su ID */
     delete: async (req, res) => {
         try {
             await Equipos.delete(req.params.id);
