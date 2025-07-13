@@ -48,6 +48,7 @@ ng serve
 2. Abre otro terminal en Visual Studio para arrancar el backend.
 ```bash
 cd /api
+npm install
 npx nodemon server.js
 ```
 
