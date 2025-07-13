@@ -1,59 +1,58 @@
 # TorneoMultideporte
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.2.
+TorneoMultideporte es una aplicación web moderna y escalable desarrollada con Angular, diseñada para la gestión integral de competiciones deportivas multidisciplinares. Está orientada a facilitar la organización, seguimiento y visualización de torneos que incluyen diferentes deportes, brindando una experiencia intuitiva tanto para organizadores como para participantes y espectadores.
 
-## Development server
+Este proyecto demuestra habilidades avanzadas en desarrollo frontend con Angular, implementación de buenas prácticas en arquitectura modular, manejo eficiente de estado y optimización del rendimiento en aplicaciones SPA (Single Page Application).
 
-To start a local development server, run:
 
-```bash
+## ✨ ¿Qué hace TorneoMultideporte?
+
+- Permite crear, editar y gestionar múltiples torneos deportivos, con distintos deportes integrados en un solo sistema.
+
+- Facilita el seguimiento en tiempo real de resultados, calendarios y clasificaciones.
+
+- Diseñado para ser responsive y accesible, adaptándose a diferentes dispositivos (móvil, tablet y escritorio).
+
+- Arquitectura preparada para integrarse con APIs externas o backends personalizados para futuras ampliaciones.
+
+- Incluye recarga automática durante el desarrollo para acelerar el ciclo de pruebas y mejora continua.
+  
+
+## 🚀 Tecnologías y herramientas clave
+
+1. Angular 20: aprovechando las últimas funcionalidades y mejoras en rendimiento.
+
+2. TypeScript: para código más robusto, mantenible y escalable.
+
+3. HTML5 y CSS3: diseño moderno, responsive y accesible.
+
+4. Node.js + npm: gestión de dependencias y scripts.
+
+5. Visual Studio Code recomendado para desarrollo.
+
+
+## 🛠 Instalación y ejecución
+
+Clona el repositorio, instala dependencias y arranca la app localmente para probarla o continuar su desarrollo.
+
+git clone https://github.com/duarteartes/torneoMultideporte.git
+cd torneoMultideporte
+npm install
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Después abre tu navegador en http://localhost:4200 para ver la aplicación funcionando.
 
-## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🎯 ¿Por qué este proyecto?
 
-```bash
-ng generate component component-name
-```
+Este proyecto es una muestra clara de mi capacidad para:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Desarrollar aplicaciones frontend complejas con frameworks modernos.
 
-```bash
-ng generate --help
-```
+- Mantener código limpio y modular, facilitando escalabilidad y mantenimiento.
 
-## Building
+- Diseñar interfaces centradas en el usuario y adaptadas a múltiples dispositivos.
 
-To build the project run:
+- Implementar flujos de trabajo eficientes para desarrollo y pruebas.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Preparar aplicaciones listas para integrarse con backends y APIs.
