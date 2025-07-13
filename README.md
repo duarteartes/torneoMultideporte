@@ -70,3 +70,8 @@ Este proyecto es una muestra clara de mi capacidad para:
 - Implementar flujos de trabajo eficientes para desarrollo y pruebas.
 
 - Preparar aplicaciones listas para integrarse con backends y APIs.
+
+
+## 📄 Licencia
+
+MIT License – libre para uso y contribuciones.
