@@ -1,44 +1,53 @@
 # TorneoMultideporte
 
-TorneoMultideporte es una aplicación web moderna y escalable desarrollada con Angular, diseñada para la gestión integral de competiciones deportivas multidisciplinares. Está orientada a facilitar la organización, seguimiento y visualización de torneos que incluyen diferentes deportes, brindando una experiencia intuitiva tanto para organizadores como para participantes y espectadores.
+TorneoMultideporte es una aplicación web moderna y escalable desarrollada con Angular, diseñada para la gestión integral de competiciones deportivas multidisciplinares. La aplicación se conecta a un backend RESTful API y a una base de datos MySQL para gestionar toda la información de torneos, participantes, resultados y clasificaciones en tiempo real.
 
-Este proyecto demuestra habilidades avanzadas en desarrollo frontend con Angular, implementación de buenas prácticas en arquitectura modular, manejo eficiente de estado y optimización del rendimiento en aplicaciones SPA (Single Page Application).
+Este proyecto demuestra habilidades avanzadas en desarrollo frontend con Angular y en integración con APIs y bases de datos relacionales, implementando buenas prácticas para arquitecturas cliente-servidor modernas.
 
 
 ## ✨ ¿Qué hace TorneoMultideporte?
 
-- Permite crear, editar y gestionar múltiples torneos deportivos, con distintos deportes integrados en un solo sistema.
+- Gestión completa de torneos multideporte a través de un frontend Angular conectado a una API backend.
 
-- Facilita el seguimiento en tiempo real de resultados, calendarios y clasificaciones.
+- Creación, edición y seguimiento de torneos, deportes, calendarios y clasificaciones.
 
-- Diseñado para ser responsive y accesible, adaptándose a diferentes dispositivos (móvil, tablet y escritorio).
+- Comunicación fluida con el backend para persistencia de datos en MySQL.
 
-- Arquitectura preparada para integrarse con APIs externas o backends personalizados para futuras ampliaciones.
+- Interfaz responsive y accesible que se adapta a dispositivos móviles, tablets y escritorio.
 
-- Incluye recarga automática durante el desarrollo para acelerar el ciclo de pruebas y mejora continua.
+- Arquitectura preparada para integrarse con APIs externas y escalable para futuras funcionalidades.
   
 
 ## 🚀 Tecnologías y herramientas clave
 
-1. Angular 20: aprovechando las últimas funcionalidades y mejoras en rendimiento.
+1. Angular 20 para frontend SPA.
 
-2. TypeScript: para código más robusto, mantenible y escalable.
+2. Backend RESTful API (Node.js/Express u otro, según implementación).
 
-3. HTML5 y CSS3: diseño moderno, responsive y accesible.
+3. Base de datos MySQL para almacenamiento persistente.
 
-4. Node.js + npm: gestión de dependencias y scripts.
+4. TypeScript para frontend robusto y mantenible.
 
-5. Visual Studio Code recomendado para desarrollo.
+5. HTML5, CSS3 para diseño responsive.
+
+6. Herramientas modernas de desarrollo (npm, Angular CLI, Visual Studio Code).
 
 
 ## 🛠 Instalación y ejecución
 
 Clona el repositorio, instala dependencias y arranca la app localmente para probarla o continuar su desarrollo.
 
+1. Clona el repositorio
 git clone https://github.com/duarteartes/torneoMultideporte.git
 cd torneoMultideporte
 npm install
 ng serve
+
+2. Abre otro terminal en Visual Studio para arrancar el backend.
+cd /api
+npx nodemon server.js
+
+3. Ves a PhpMyAdmin y en la Base de datos generada vuelca todos los inserts que tenemos en la carpeta/api/sql/inserts.sql
 
 Después abre tu navegador en http://localhost:4200 para ver la aplicación funcionando.
 
