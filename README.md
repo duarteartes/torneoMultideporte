@@ -38,14 +38,18 @@ Este proyecto demuestra habilidades avanzadas en desarrollo frontend con Angular
 Clona el repositorio, instala dependencias y arranca la app localmente para probarla o continuar su desarrollo.
 
 1. Clona el repositorio
+```bash
 git clone https://github.com/duarteartes/torneoMultideporte.git
 cd torneoMultideporte
 npm install
 ng serve
+```
 
 2. Abre otro terminal en Visual Studio para arrancar el backend.
+```bash
 cd /api
 npx nodemon server.js
+```
 
 3. Ves a PhpMyAdmin y en la Base de datos generada vuelca todos los inserts que tenemos en la carpeta/api/sql/inserts.sql
 
